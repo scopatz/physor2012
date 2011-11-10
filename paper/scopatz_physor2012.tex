@@ -1,29 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  This is a sample LaTeX input file for your contribution to 
-%  the PHYSOR2012 topical meeting.
-%
-%  Please use it as a template for your full paper 
-%    Accompanying/related file(s) include: 
-%       1. Document class/format file: physor2012.cls
-%       2. Sample Postscript Figure:   figure.pdf
-%       3. A PDF file showing the desired appearance: physor2012_template.pdf
-%       4. cites.sty and citesort.sty that might be needed by some users 
-%    Direct questions about these files to: info@physor2012.org
-%
-%    Notes: 
-%      (1) You can use the "dvips" utility to convert .dvi 
-%          files to PostScript.  Then, use either Acrobat 
-%          Distiller or "ps2pdf" to convert to PDF format. 
-%      (2) Different versions of LaTeX have been observed to 
-%          shift the page down, causing improper margins.
-%          If this occurs, adjust the "topmargin" value in the
-%          physor2012.cls file to achieve the proper margins. 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{physor2012}
 %
 %  various packages that you may wish to activate for usage 
@@ -34,36 +8,27 @@
 %
 % Define title...
 %
-\title{TITLE OF THE PAPER: CENTERED, UPPERCASE, 14 POINT TIMES \\
-  NEW ROMAN, ON SECOND LINE FROM THE TOP MARGIN, NOT \\
-  MORE THAN 3 LINES LONG}
+\title{GENERATING NUCLIDE-SPECIFIC SCATTERING KERNELS WITH SERPENT}
 %
 % ...and authors
 %
 \author{%
   % FIRST AUTHORS 
   %
-  \textbf{Author A and Author B}\footnote{Footnote, if necessary, in Times New Roman font and font size 9} \\
-  Name of Institute  \\
-  Corresponding Address \\
-  \url{A@institute.gov}; \url{B@institute.gov} \\
-  % 
-  % SECOND AUTHORS (if not needed delete from here) 
-  \\
-  \textbf{Double space and list Author C} \\
-  Department of Nuclear Engineering  \\
-  Name of University \\
-  Address \\
-  \url{C@name.univ.edu}
-  % SECOND AUTHORS (to here)
+  \textbf{Anthony Scopatz and Erich Schneider} \\
+  The University of Texas at Austin \\
+  1 University Station, C2200, Austin, TX, 78712 \\
+  \url{scopatz@mail.utexas.edu}; \url{eschneider@mail.utexas.edu} \\
 }
 %
 % Insert authors' names and short version of title in lines below
 %
 \newcommand{\authorHead}      % Author's names here
-           {Authors' names, use et al. if more than 3}  
+           {A. M. Scopatz and E. A. Schneider}  
 \newcommand{\shortTitle}      % Short title here
-           {Paper Title (Shorten to fit all into a single line)}  
+           {Gneerating Nuclide-Specific Scattering Kernels with Serpent}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   BEGIN DOCUMENT
@@ -79,33 +44,12 @@
   accomplishments, what is new, and how it relates to the state-of-the-art.
 \end{abstract}
 \keywords{List of at most five key words}
-%
+
+
 \section{INTRODUCTION} 
-Paper starts here with two blank lines before first section title.  Use 
-8.5$\times$11 paper size, with 1'' margins on all sides.  Double-space before and
-after each subsequent section's title.  Most of the formatting is globally
-set by the specifications given in the \emph{physor2012.cls} file.  
-First-level section titles must be all uppercase and centered, and must 
-be numbered in Arabic numerals as shown above.  Unlike the Word and WordPerfect
-templates, the body text and section titles for this \LaTeX\ template use 
-11-point font.  I found that the 11-point font in \LaTeX\ more closely 
-matched the 12-point font in Word and WordPerfect.  Introduce the topic of your work in this section.
 
-The first line of a paragraph is not indented; rather double-space between 
-paragraphs.  This is done automatically. If you are a \LaTeX\ expert you 
-can likely define the established format characteristics in a more elegant 
-manner than what is done here.  This is perfectly fine, so long as the 
-established paper format/appearance is maintained.  This template is merely 
-to assist with maintaining uniformity in paper appearance.
 
-There are four types of reference styles: journal paper\cite{journal}, 
-proceedings paper\cite{proc_paper}, book\cite{book}, and website\cite{website}.
-References to websites are discouraged, but acceptable if absolutely necessary.
-The paper will be included as a \emph{.pdf} file for the proceedings. Note that 
-it is the author's responsibility to review the final PDF version of the paper
-to ensure proper translation into PDF.  Final PDF file size should be no more 
-than 4 MB.  Recommended paper length is 10-12 pages.
-%
+
 \section{SECOND OR SUBSEQUENT MAJOR HEADING} 
 \label{sec:first}
 %
@@ -124,7 +68,7 @@ Triple-space before the figure, and after the figure caption.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=0.60]{./figure.pdf}
+  %\includegraphics[scale=0.60]{./figure.pdf}
   \caption{\bf SCALE/TRITON-NEWT Model of BWR Assembly in Order to Show and Example of a Figure and a Multi-line Caption} 
   \label{fig:amdahl}
 \end{figure}
@@ -186,34 +130,10 @@ The format for this template was adapted from the template for Math and Computat
 posted on the Internet.  Most of the \LaTeX\ format definitions contained
 in this and the accompanying files were adapted from sample files supplied 
 by J. Wagner (ORNL) and James Warsa (LANL). Their help is greatly appreciated.
+
 %
-% You can enter a bibliography into the document using the following format, or use the 
-% bibliography style file "physor.bst" found in the template directory.  You can use the bibliography style file
-% by replacing the current bibliography block with:
-% \setlength{\baselineskip}{12pt}
-% \bibliographystyle{physor}
-% \bibliography{physor}
-% 
 \setlength{\baselineskip}{12pt}
-\begin{thebibliography}{300}
-\bibitem{journal} B. Author(s), ``Title,'' \emph{Journal Name in Italic}, 
-  \textbf{Volume in Bold}, pp. 34-89 (19xx).
-\bibitem{proc_paper} C. D. Author(s), ``Article Title,'' \emph{Proceedings of
-  Meeting in Italic}, Location, Dates of Meeting, Vol. n, pp. 134-156 
-  (19xx).
-\bibitem{book} E. F. Author, \emph{Book Title in Italic}, Publisher, City \&
-  Country (19xx). 
-\bibitem{website} ``Spallation Neutron Source: The next-generation 
-  neutron-scattering facility in the United States,'' 
-  \url{http://www.sns.gov/documentation/sns\_brochure.pdf} (2002).
-\end{thebibliography}
-
-\appendix
-\gdef\thesection{APPENDIX \Alph{section}}
-\section{Sample Appendix 1}
-\label{app:a}
-This is \ref{app:a}. 
-
-
+\bibliographystyle{physor}
+\bibliography{library}
 
 \end{document}
