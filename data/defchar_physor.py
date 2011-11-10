@@ -78,8 +78,8 @@ fuel_chemical_form = {                 #Dictionary of initial fuel loading.
 fuel_form_mass_weighted = True  # Flag that determines if the fuel form should be mass weighted (True) or atom weighted (False)
 
 #k_particles   = 10000      #Number of particles to run per kcode cycle
-k_particles   = 5000      #Number of particles to run per kcode cycle
-#k_particles   = 1000      #Number of particles to run per kcode cycle
+#k_particles   = 5000      #Number of particles to run per kcode cycle
+k_particles   = 1000      #Number of particles to run per kcode cycle
 #k_particles   = 100      #Number of particles to run per kcode cycle
 k_cycles      = 130       #Number of kcode cycles to run
 k_cycles_skip = 30        #Number of kcode cycles to run but not tally at the begining.
