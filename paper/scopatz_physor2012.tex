@@ -119,16 +119,34 @@ group-to-group scattering cross sections for user-specified geometries and energ
 group structures as part of its standard suite of results.   Call $P_{g\to h}$  
 the group transfer probability.  To within computational error, the following 
 relations are true:
-
-\begin{equation}\sum_h^G P_{g\to h} = \mathbf{\vec{1}}\end{equation}
-\begin{equation}P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
+\begin{equation}\label{P_h_norm}\sum_h^G P_{g\to h} = \mathbf{\vec{1}}\end{equation}
+\begin{equation}\label{P_sig_norm}P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
 
 Serpent, like other physics codes, allows users to specify materials.
 Denote $m_i$ as the mass fraction of the $i$\superscript{th} nuclide 
 in a material.  The scattering cross section of the material is thus
 the weighted sum of the constituent species:
+\begin{equation}\label{mat_norm}\sigma_{s,g\to h} = \sum_i^I m_i \sigma_{s,g\to h,i}\end{equation}
 
-\begin{equation}\sigma_{s,g\to h} = \sum_i^I m_i \sigma_{s,g\to h,i}\end{equation}
+By combining equations \ref{P_sig_norm} \& \ref{mat_norm}, an expression for the
+group transfer probability is obtained which represents the method by which it
+is calculated within Serpent.
+\begin{equation}
+\label{P_serp}
+P_{g\to h} = \frac{\sum_i^I m_i \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_i^I m_i P_{g\to h,i}
+\end{equation}
+The desired parameter, either $\sigma_{s,g\to h,i}$ or $P_{g\to h,i}$, lies within
+the summation in equation \ref{P_serp}.
+
+Therefore to obtain nuclide-specific scattering kernels Serpernt must be prevented
+from executing the above summation for all but the desired species.  Hence, the 
+appropriate loop was found and a material filter was added.  As a Monte Carlo code, 
+this filter would only be triggered if a scattering reaction occured.  Thus the
+addition of this filter did not adversely affect other tallies.  Moreoever, this
+filter was included after all physics calculations but prior to reporting.  The 
+physics of the reactor was not altered by the use of the filter.
+
+The 
 
 \section{RESULTS} 
 \label{sec:results}
