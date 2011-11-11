@@ -1,2 +1,12 @@
 # Data files
 data/lwr_physor2012
+
+# latex junk
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.dvi
+paper/*.log
+paper/*.pdf
+
+
