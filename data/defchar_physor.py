@@ -39,8 +39,8 @@ burnup_template = serpent.burnup
 
 base_fuel_cell_radius = 0.410
 fuel_cell_radius = [base_fuel_cell_radius * delta for delta in [0.9, 1.1, 0.95, 1.05]]
-void_cell_radius = [0.0085 + fcr for fcr in fuel_cell_radius]
-clad_cell_radius = [0.06215 + vcr for vcr in void_cell_radius]
+void_cell_radius = 0.0085 + max(fuel_cell_radius)
+clad_cell_radius = 0.06215 + void_cell_radius
 
 unit_cell_pitch  = 0.65635 * 2.0 
 unit_cell_height = 10.0
