@@ -1,6 +1,9 @@
 # Data files
 data/lwr_physor2012
 
+# Python
+*.pyc
+
 # latex junk
 paper/*.aux
 paper/*.bbl
