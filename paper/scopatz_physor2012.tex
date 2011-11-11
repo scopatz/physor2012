@@ -115,8 +115,20 @@ validate the changes made to the Serpent code base.
 \subsection{Serpent Modifications}
 
 The reactor physics code Serpent calculates group transfer probabilities and 
-group-to-group scattering cross sections for user-specified geometry and energy 
-group structure as part of its standard suite of results.
+group-to-group scattering cross sections for user-specified geometries and energy 
+group structures as part of its standard suite of results.   Call $P_{g\to h}$  
+the group transfer probability.  To within computational error, the following 
+relations are true:
+
+\begin{equation}\sum_h^G P_{g\to h} = \mathbf{\vec{1}}\end{equation}
+\begin{equation}P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
+
+Serpent, like other physics codes, allows users to specify materials.
+Denote $m_i$ as the mass fraction of the $i$\superscript{th} nuclide 
+in a material.  The scattering cross section of the material is thus
+the weighted sum of the constituent species:
+
+\begin{equation}\sigma_{s,g\to h} = \sum_i^I m_i \sigma_{s,g\to h,i}\end{equation}
 
 \section{RESULTS} 
 \label{sec:results}
