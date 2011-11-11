@@ -119,6 +119,7 @@ group-to-group scattering cross sections for user-specified geometries and energ
 group structures as part of its standard suite of results.   Call $P_{g\to h}$  
 the group transfer probability.  To within computational error, the following 
 relations are true:
+
 \begin{equation}\label{P_h_norm}\sum_h^G P_{g\to h} = \mathbf{\vec{1}}\end{equation}
 \begin{equation}\label{P_sig_norm}P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
 
@@ -146,7 +147,24 @@ addition of this filter did not adversely affect other tallies.  Moreoever, this
 filter was included after all physics calculations but prior to reporting.  The 
 physics of the reactor was not altered by the use of the filter.
 
-The 
+The implementation of the filter works as follows. First,the user specifies
+a dummy filter material.  The nuclides present in this material are the species 
+which are tallied by the filter.  All other nuclides are ignored, as are the mass 
+fraction values.  Then the user sets the material to filter via the new `gtpmat'
+option.  This has the syntax `set gtpmat <material label>'.
+
+Serpent normally outputs the group transfer probability and the group-to-group
+scattering cross section to the GTRANSFP and GTRANSFXS variables respectively.
+Howver by using `gtpmat', GTRANSFP takes on the filtered value while GTRANSFXS
+is invalidated.  The loss of meaning for GTRANSFXS here is not problematic
+because, using the detector capability of Serpent, $\sigma_{s,g,i}$ may computed.
+This can then be convolved with the newly computed $P_{g\to h,i}$ to obtain
+the correct $\sigma_{s,g\to h,i}$.
+
+Since the filter nuclides are given as a set (albeit as members of a material), 
+isotope-soecific group transfer probabilities are obtained using materials with 
+only a single species.  This is the most common oppertation mode.
+
 
 \section{RESULTS} 
 \label{sec:results}
