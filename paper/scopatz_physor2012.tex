@@ -101,15 +101,22 @@ and compared.  Additionally full-core and region group constants were also compa
 
 In \S \ref{sec:methodology} is an explantion of the modifications made to Serpent 
 and the detailing of the sensitivity study performed.  In \S \ref{sec:results} the 
-reults of the sensitivity study are presented.  Lastly, \S \ref{sec:conculsions}
+reults of the sensitivity study are presented.  Lastly, \S \ref{sec:conclusions}
 discusses concluding remarks and potential future work.
 
 \section{METHODOLOGY} 
 \label{sec:methodology}
-%
-This is Section~\ref{sec:first}. It is followed by a subsection, that is, 
-\ref{sec:second}. The style for subsection titles and all text in this template is defined in 
-the \emph{physor2012.cls} file.  Make sure to avoid widow/orphan lines.
+
+This work is composed of two main parts.  The first portion describes how 
+Serpent was altered to generate nuclide specific scattering kernels.  
+The second portion outlines a fuel radius perturbation study used to 
+validate the changes made to the Serpent code base.
+
+\subsection{Serpent Modifications}
+
+The reactor physics code Serpent calculates group transfer probabilities and 
+group-to-group scattering cross sections for user-specified geometry and energy 
+group structure as part of its standard suite of results.
 
 \section{RESULTS} 
 \label{sec:results}
