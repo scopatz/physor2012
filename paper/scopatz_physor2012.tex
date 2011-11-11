@@ -84,77 +84,40 @@ codes were considered: MCNPX (v2.6+) and Serpent (v1.7+).  MCNPX confers the
 ability to compute $\sigma_{s,g,i}$.  Serpent by default will calculate 
 $\sigma_{s,g\to h}$ and allows the user to compute $\sigma_{s,g,i}$ as well.
 
-Why serpent and what I did.
+Becuase the group-to-group scattering cross section was already natively supported, 
+Serpent was ultimately chosen to statisfy the group constant generation needs of
+Char.  However, the source code of Serpent needed to be altered to support 
+the reporting of $\sigma_{s,g\to h,i}$.  This modified verion is available upon
+request from the author\footnote{This is subject to the same license and restrictions
+as Serpent itself.}.
 
-\section{SECOND OR SUBSEQUENT MAJOR HEADING} 
-\label{sec:first}
+The success of the perturbation-based multigroup model itself serves to validate
+the modifications made to Serpent.  However, this study presents a sensitivity study 
+which focuses on the group-to-gorup scattering cross section as calculated via 
+the modified Serpent.  Here the fuel pin radius set to two different values and 
+$\sigma_{s,g\to h,i}$ is calculated for all nuclides.  Values for the scattering 
+kernel for intermediate fuel radii were then found via interpolation and modified Serpent 
+and compared.  Additionally full-core and region group constants were also compared.
+
+In \S \ref{sec:methodology} is an explantion of the modifications made to Serpent 
+and the detailing of the sensitivity study performed.  In \S \ref{sec:results} the 
+reults of the sensitivity study are presented.  Lastly, \S \ref{sec:conculsions}
+discusses concluding remarks and potential future work.
+
+\section{METHODOLOGY} 
+\label{sec:methodology}
 %
 This is Section~\ref{sec:first}. It is followed by a subsection, that is, 
 \ref{sec:second}. The style for subsection titles and all text in this template is defined in 
 the \emph{physor2012.cls} file.  Make sure to avoid widow/orphan lines.
-%
-\subsection{Subsection Title: First Character of Each Non-trivial Word is Uppercase} 
-\label{sec:second}
-%
-Double-space before and after secondary titles is automatic.  Figures and 
-tables should appear as close as possible to where they are first
-cited, e.g., Fig.~\ref{fig:amdahl}, in the text.  Figures are numbered in Arabic 
-numerals, with the caption centered below the figure, in \textbf{boldface}.  
-Triple-space before the figure, and after the figure caption.
 
-\begin{figure}[!htb]
-  \centering
-  %\includegraphics[scale=0.60]{./figure.pdf}
-  \caption{\bf SCALE/TRITON-NEWT Model of BWR Assembly in Order to Show and Example of a Figure and a Multi-line Caption} 
-  \label{fig:amdahl}
-\end{figure}
+\section{RESULTS} 
+\label{sec:results}
 
-When importing figures or any graphical image please verify two things:
-\begin{itemize}
-\item Any number, text or symbol is in Times font and is not smaller than 
-  10-point after reduction to the actual window in your paper
-\item That it can be translated into PDF
-\end{itemize}
-Equations, such as Eq. (\ref{sample_equation}), should be centered and 
-sequentially numbered to the flush right of the formula.
 
-\begin{equation}
-  \label{sample_equation}
-  \mathrm{Speedup}=\frac{1}{\frac{f}{p}+(1-f)}
-\end{equation}
-
-The continuation of a paragraph after an equation should not be indented.  
-All paragraphs, as well as section or subsection headings, are separated by 
-just one single empty line.
 %
-\subsubsection{Sub-subsection level and lower: only first character uppercase}
-%
-See Table \ref{table:example} for a sample table.  The ``tabls'' package is
-recommended for improved row and column spacing.  Notice the caption appears 
-above the table by setting the \verb!\caption! command immediately 
-after the \verb!\begin{table}!. Tables are numbered in Roman 
-numerals, with the caption centered above the table, in \textbf{boldface}.  
-Triple-space before and after the table.
-%
-\begin{table}[!htb]
-  \centering
-  \caption{\bf Parallel Performance for the Sample Problem}
-  \label{table:example} 
-  \begin{tabular}{||r||c|c|c||} \hline \hline
-    \multicolumn{1}{||c||}{Number of} &
-    \multicolumn{1}{c|}{Wall-Clock} &
-    \multicolumn{1}{c|}{Speedup} &
-    \multicolumn{1}{c||}{Efficiency} \\
-    \multicolumn{1}{||c||}{Processors} &
-    \multicolumn{1}{c|}{Time$^{a}$ (min)} &
-    \multicolumn{1}{c|}{(T$_{s}$/T$_{p}$)} &
-    \multicolumn{1}{c||}{(\%)} \\ \hline\hline
-    \ 1 &  100.0 & \ ---    & ---  \\ \hline
-    \ 2 &   52.6 & \ 1.9    & 95.0 \\ \hline \hline
-  \end{tabular}
-\end{table}
-%
-\section{CONCLUSIONS}
+\section{CONCLUSIONS \& FUTURE WORK}
+\ref{sec:conclusions}
 %
 Present your summary and conclusions here.
 %
