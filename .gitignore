@@ -2,6 +2,9 @@
 data/lwr_base
 data/lwr_physor2012
 
+# Ignore HDF5
+*.h5
+
 # Python
 *.pyc
 
