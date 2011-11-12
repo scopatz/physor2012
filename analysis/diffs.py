@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import tables as tb
+from scipy.stats import kendalltau
 
 from nuc_sets import serp_nucs, model_nucs 
 
@@ -19,18 +20,20 @@ BASEPATH = '../data/lwr_base.h5'
 PHYSPATH = '../data/lwr_physor2012.h5'
 
 
-def load_sigma_s(nucs, lib, p):
-    """Loads scattering xs from a Char lib for a set of nucs for the pth row."""
+def load_sigma(nucs, lib, p):
+    """Loads xs from a Char lib for a set of nucs for the pth row."""
+    sig_a_g = {}
     sig_s_g = {}
     sig_s_gh = {}
 
     f = tb.openFile(lib, 'r')
     for nuc in nucs:
+        sig_a_g[nuc] = np.array(f.getNode('/sigma_a/' + nuc)[p])
         sig_s_g[nuc] = np.array(f.getNode('/sigma_s/' + nuc)[p])
         sig_s_gh[nuc] = np.array(f.getNode('/sigma_s_gh/' + nuc)[p])
 
     f.close()
-    return sig_s_g, sig_s_gh
+    return sig_a_g, sig_s_g, sig_s_gh
 
 def group_transfer_prob(sigma_s_g, sigma_s_gh):
     """Computes the group transfer probabilities from scattering dictionaries."""
@@ -73,23 +76,18 @@ def sort_frac_diff(fdiff):
 
 def analyze_vs_lib(r, libpath, p_start, p_offset):
     r0 = 0.369
-    r025 = 0.3895
-    r05 = 0.41
-    r075 = 0.4305
     r1 = 0.451
 
-    p_offset = 0
-
     # r_fuel = 0.9 base
-    s_g0, s_gh0 = load_sigma_s(NUCLIDES, PHYSPATH, 0 + p_offset)
+    s_a0, s_g0, s_gh0 = load_sigma(NUCLIDES, PHYSPATH, 0 + p_offset)
     gtp0 = group_transfer_prob(s_g0, s_gh0)
 
     # r_fuel = 1.1 base
-    s_g1, s_gh1 = load_sigma_s(NUCLIDES, PHYSPATH, 5 + p_offset)
+    s_a1, s_g1, s_gh1 = load_sigma(NUCLIDES, PHYSPATH, 5 + p_offset)
     gtp1 = group_transfer_prob(s_g1, s_gh1)
 
     # r_fuel from lib
-    s_g, s_gh = load_sigma_s(NUCLIDES, libpath, p_start + p_offset)
+    s_a, s_g, s_gh = load_sigma(NUCLIDES, libpath, p_start + p_offset)
     gtp = group_transfer_prob(s_g, s_gh)
 
     # Interpolated values
@@ -99,21 +97,24 @@ def analyze_vs_lib(r, libpath, p_start, p_offset):
     for nuc, ind, val in sfdiff:
         if (s_gh[nuc].flat[ind] != 0.0)  and (is_gh[nuc].flat[ind] != 0.0) and \
            (s_gh0[nuc].flat[ind] != 0.0) and (s_gh1[nuc].flat[ind] != 0.0):
-            print nuc, val, (ind/19, ind%19), s_gh[nuc].flat[ind]
+            g = ind / 19
+            h = ind % 19
+            print nuc, val, (g, h), s_gh[nuc].flat[ind], \
+                  s_a[nuc].flat[g] / s_g[nuc].flat[g], \
+                  s_gh[nuc][g,h] / s_g[nuc].flat[g], \
+                  kendalltau(is_gh[nuc], s_gh[nuc])[0]
 
 
 def main():
-    r0 = 0.369
     r025 = 0.3895
     r05 = 0.41
     r075 = 0.4305
-    r1 = 0.451
 
     p_offset = 0
 
     analyze_vs_lib(r025, PHYSPATH, 10, p_offset)
-    analyze_vs_lib(r05,  BASEPATH, 0,  p_offset)
-    analyze_vs_lib(r075, PHYSPATH, 15, p_offset)
+    #analyze_vs_lib(r05,  BASEPATH, 0,  p_offset)
+    #analyze_vs_lib(r075, PHYSPATH, 15, p_offset)
     
 
 if __name__ == '__main__':
