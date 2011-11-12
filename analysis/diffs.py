@@ -73,8 +73,17 @@ def sort_frac_diff(fdiff):
     return s
 
 
+avl_dtype = np.dtype([
+    ('nuclide', 'S6'),
+    ('$\\epsilon$', float),
+    ('$g$', float),
+    ('$h$', float),
+    ('$\\sigma_{s,g\\to h,i}$', float),
+    ('$P_{g\\to h,i}$', float),
+    ])
 
-def analyze_vs_lib(r, libpath, p_start, p_offset):
+
+def analyze_vs_lib(r, libpath, p_start, p_offset, label):
     r0 = 0.369
     r1 = 0.451
 
@@ -94,27 +103,33 @@ def analyze_vs_lib(r, libpath, p_start, p_offset):
     is_g, is_gh, igtp = interp_xs(r, r0, r1, s_g0, s_g1, s_gh0, s_gh1)
     fdiff = frac_diff(is_gh, s_gh, s_g)
     sfdiff = sort_frac_diff(fdiff)
-    for nuc, ind, val in sfdiff:
-        if (s_gh[nuc].flat[ind] != 0.0)  and (is_gh[nuc].flat[ind] != 0.0) and \
-           (s_gh0[nuc].flat[ind] != 0.0) and (s_gh1[nuc].flat[ind] != 0.0):
-            g = ind / 19
-            h = ind % 19
-            print nuc, val, (g, h), s_gh[nuc].flat[ind], \
-                  s_a[nuc].flat[g] / s_g[nuc].flat[g], \
-                  s_gh[nuc][g,h] / s_g[nuc].flat[g], \
-                  kendalltau(is_gh[nuc], s_gh[nuc])[0]
 
+    res = []
+    for nuc, ind, val in sfdiff:
+        g = ind / 19
+        h = ind % 19
+        if (s_gh[nuc][g,h] != 0.0)  and (is_gh[nuc][g,h] != 0.0) and \
+           (s_gh0[nuc][g,h] != 0.0) and (s_gh1[nuc][g,h] != 0.0):
+            row = (nuc, val, g, h, s_gh[nuc][g,h], 
+                  gtp[nuc][g,h], 
+                  s_a[nuc][g] / s_g[nuc][g], 
+                  kendalltau(is_gh[nuc], s_gh[nuc])[0] )
+            res.append(row)
+        #else:
+        #    print nuc, kendalltau(is_gh[nuc], s_gh[nuc])[0]
+    #res = np.array(res)
+    print res
 
 def main():
-    r025 = 0.3895
-    r05 = 0.41
-    r075 = 0.4305
+    r25 = 0.3895
+    r50 = 0.41
+    r75 = 0.4305
 
     p_offset = 0
 
-    analyze_vs_lib(r025, PHYSPATH, 10, p_offset)
-    #analyze_vs_lib(r05,  BASEPATH, 0,  p_offset)
-    #analyze_vs_lib(r075, PHYSPATH, 15, p_offset)
+    analyze_vs_lib(r25, PHYSPATH, 10, p_offset, 'r25')
+    #analyze_vs_lib(r50, BASEPATH, 0,  p_offset, 'r50')
+    #analyze_vs_lib(r75, PHYSPATH, 15, p_offset, 'r75')
     
 
 if __name__ == '__main__':
