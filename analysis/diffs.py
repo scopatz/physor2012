@@ -36,13 +36,13 @@ def group_transfer_prob(sigma_s_g, sigma_s_gh):
     return gtp 
 
 
-def interp_gtp(r, r0, r1, gtp0, gtp1):
-    igtp = {}
+def interp_data(r, r0, r1, data0, data1):
+    idata = {}
     ir_dr = (r - r0)/(r1 - r0)
-    for nuc in gtp0:
-        dgtp = gtp1[nuc] - gtp0[nuc]
-        igtp[nuc] = dgtp*ir_dr
-    return igtp
+    for nuc in data0:
+        ddata = data1[nuc] - data0[nuc]
+        idata[nuc] = ddata*ir_dr + data0[nuc]
+    return idata
 
 def main():
     r0 = 0.369
@@ -60,10 +60,17 @@ def main():
 
     # r_fuel = 0.95 base
     s_g025, s_gh025 = load_sigma_s(nuclides, '/home/scopatz/lwr_physor2012.h5', 10)
-    gtp025 = group_transfer_prob(s_g1, s_gh025)
+    gtp025 = group_transfer_prob(s_g025, s_gh025)
 
-    igtp025 = interp_gtp(r025, r0, r1, gtp0, gtp1)
-    print np.argmax(np.abs(igtp025['H1'] - gtp025['H1']))
+    is_g025 = interp_data(r025, r0, r1, s_g0, s_g1)
+    is_gh025 = interp_data(r025, r0, r1, s_gh0, s_gh1)
+    igtp025 = group_transfer_prob(is_g025, is_gh025)
+    #igtp025 = interp_data(r025, r0, r1, gtp0, gtp1)
+    print is_g025['H1']
+    #print igtp025['H1']
+    #print igtp025['H1'] - gtp025['H1']
+    print np.max(np.abs((is_gh025['H1'] - s_gh025['H1'])/s_g025['H1']))
+    print np.max(np.abs(igtp025['H1'] - gtp025['H1']))
 
 
 if __name__ == '__main__':
