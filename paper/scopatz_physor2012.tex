@@ -313,7 +313,8 @@ Group-to-group scattering cross section interpolations were performed for
 each nuclide for three fuel radii (0.3895, 0.41, and 0.4305 [cm]) inbetween two 
 fuel radii (0.369 and 0.451 [cm]) results generated from the modified version of
 Serpent.  The interpolated values were then compared to the equivelent data 
-generated using Serpent.  Summary statistics are presented in Tables \ref{r25}-\ref{r75}.
+generated using Serpent.  Summary statistics are presented in 
+Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
@@ -343,8 +344,31 @@ These summary tables contain all of the nuclides Serpent may natively ccompute
 (\emph{i.e.} those present in ENDF/B-VII \cite{}).  The nuclides are sorted from
 highest-to-lowest maximum absolute value of the fractional difference $\epsilon$
 for all $g$ \& $h$.  Thus the top entry gives a maximal error for all group
-constants for all nuclides.  Nuclides whose maxmium $|\epsilon|$ is less than 
-that of the last entry are not displayed.
+constants for all nuclides.  Nuclides whose $\mbox{max}(|\epsilon|)$ is less than 
+that of the last entry are not displayed.  The value of this $\epsilon$ is 
+shown in the second column.
+
+For the vast majority of species in these three tables the interpolated value of 
+the group-to-group scattering cross section is within $\pm 5\%$ of the measured 
+value.  Thus in most cases $\epsilon$ is enough to conclude that interpolation 
+is a valid run-time technique for generating scattering kernels.
+
+Furthermore many species have fractional differneces within the 2\% mark. 
+It is especially impotant to note that \nuc{H}{1} and \nuc{O}{16} lie in 
+this regime.  Hydrogen in an LWR is the primary mechanism of neutron 
+moderation.  (Oxygen, via its chemical bond with hydrogen in water, also 
+plays an important roll).  That the scattering cross sections for these nuclides
+are well-determined is key to the reactor model functioning as intended.
+
+However, some nuclides have fractional differences which are above the
+\emph{a priori} acceptability mark.  For such species, Kendall's $\tau$ is
+shown in the third column of Tables \ref{r25}-\ref{r75}.  The value of
+$\tau$ is always greater than $0.75$ and is overwhelmingly much closer to 1.
+This result implies that even for nuclides which have a $\sigma_{s,g\to h,i}$ which
+is significantly off, that the off indices $g$ \& $h$ are relatively isoloated.  
+The rest of the scattering kernel for such species remains valid.
+
+
 
 \clearpage
 
