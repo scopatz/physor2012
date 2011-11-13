@@ -95,7 +95,7 @@ def array2tabular(a, path=""):
 
     body = ""
     dtem = dtype2template(a.dtype)
-    for row in a:
+    for row in a[:44]:
         body += dtem.format(*row) 
 
     footer = "\\hline\n\\end{tabular}"

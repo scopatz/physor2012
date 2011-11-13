@@ -173,7 +173,7 @@ isotope-specific group transfer probabilities are obtained using materials with
 only a single species.  This is the most common usage of the additional `gtpmat'
 command.
 
-\subsection{Kernel Interpolations}
+\subsection{Group-to-Group Interpolations}
 
 The primary purpose of storing sets of multigroup cross sections is 
 to be able to interpolate between them.  Since interpolations of existsing 
@@ -263,7 +263,7 @@ scattering cross section is given simply as in equation \ref{lin_interp}:
                           \sigma_{s,g\to h,i}^{-}
 \end{equation}
 Such interpolations were carried out for three fuel radii: $-5\%$, $+5\%$, and the 
-benchmark $r_{\mbox{fuel}}$.
+benchmark fuel radius.
 
 The interpolated scattering cross sections were then compared to the `true'
 values (no superscript), as computed via Serpent. A fractional difference 
@@ -309,10 +309,42 @@ fluences.
 \section{RESULTS} 
 \label{sec:results}
 
+Group-to-group scattering cross section interpolations were performed for
+each nuclide for three fuel radii (0.3895, 0.41, and 0.4305 [cm]) inbetween two 
+fuel radii (0.369 and 0.451 [cm]) results generated from the modified version of
+Serpent.  The interpolated values were then compared to the equivelent data 
+generated using Serpent.  Summary statistics are presented in Tables \ref{r25}-\ref{r75}.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Interpoltation at $r_{\mbox{fuel}}=0.3895$ [cm]}
+\label{r25}
+\input{r25}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Interpoltation at $r_{\mbox{fuel}}=0.41$ [cm]}
+\label{r50}
+\input{r50}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Interpoltation at $r_{\mbox{fuel}}=0.4305$ [cm]}
+\label{r75}
+\input{r75}
+\end{center}
+\end{table}
+
+
+
 
 %
 \section{CONCLUSIONS \& FUTURE WORK}
-\ref{sec:conclusions}
+\label{sec:conclusions}
 %
 Present your summary and conclusions here.
 %
