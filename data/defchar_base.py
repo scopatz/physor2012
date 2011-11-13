@@ -39,7 +39,7 @@ burnup_template = serpent.burnup
 
 base_fuel_cell_radius = 0.410
 fuel_cell_radius = base_fuel_cell_radius
-void_cell_radius = 0.0085 + fuel_cell_radius
+void_cell_radius = 0.0085 + fuel_cell_radius*1.1
 clad_cell_radius = 0.06215 + void_cell_radius
 
 unit_cell_pitch  = 0.65635 * 2.0 
@@ -77,9 +77,9 @@ fuel_chemical_form = {                 #Dictionary of initial fuel loading.
 
 fuel_form_mass_weighted = True  # Flag that determines if the fuel form should be mass weighted (True) or atom weighted (False)
 
-#k_particles   = 10000      #Number of particles to run per kcode cycle
+k_particles   = 10000      #Number of particles to run per kcode cycle
 #k_particles   = 5000      #Number of particles to run per kcode cycle
-k_particles   = 1000      #Number of particles to run per kcode cycle
+#k_particles   = 1000      #Number of particles to run per kcode cycle
 #k_particles   = 100      #Number of particles to run per kcode cycle
 k_cycles      = 130       #Number of kcode cycles to run
 k_cycles_skip = 30        #Number of kcode cycles to run but not tally at the begining.
