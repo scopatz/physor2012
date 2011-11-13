@@ -49,16 +49,16 @@
     input parameter for any multi-energy group physics model.  However,
     obtaining this data for a single species of a material has been 
     historically difficult.  Here, the Monte Carlo neutron transport code
-    Serpent was modified to return the group transfer probabilites on 
+    Serpent was modified to return the group transfer probabilities on 
     a per-nuclide basis.  This ability is useful in the context of 
-    essenital physics reactor models where cross section perturbations
-    are used to quickly generate reactor state depenedent group constants at 
+    essential physics reactor models where cross section perturbations
+    are used to quickly generate reactor state dependent group constants at 
     run time.  The modified version of Serpent was therefore verified with three
     interpolation cases.  For most species, interpolation resulted in errors of
     less than 5\% of transport-computed values.  For important scatterers, 
     such as \nuc{H}{1} and \nuc{O}{16}, errors less than 2\% were observed.
     For nuclides with high errors ($>10\%$), the scattering channel typically
-    only had a small probablitity of occuring.
+    only had a small probability of occurring.
 \end{abstract}
 \keywords{essential physics, neutron scattering, serpent}
 
@@ -68,7 +68,7 @@ Creating full-core, homogenized neutron group-to-group scattering cross sections
 for nuclear power reactors is traditionally done via Monte Carlo methods (such as
 MCNPX \cite{}).  Computing region or sub-region kernels may be performed in much 
 the same way.  However, these methods homogenize not only over reactor geometry
-but over material composisition as well.  For perturbation-based reactor models 
+but over material composition as well.  For perturbation-based reactor models 
 \cite{}, nuclide specific scattering cross sections are needed.
 
 Perturbation-based reactor models (such as those in Bright \cite{}) use a 
@@ -77,22 +77,22 @@ These libraries are comprised of microscopic neutron cross sections
 or reaction rates for each nuclide for a given reactor state.  For reactor 
 specifications that are not one of the precomputed states, two or more libraries
 are interpolated at run-time to form a dynamically generated core.  This mechanism
-grants large performance gains over transport methods while maintatining 
+grants large performance gains over transport methods while maintaining 
 acceptable core performance fidelity.
 
 For multi-energy group reactor models using the above algorithm, the scattering 
 cross section $\sigma_{s,g\to h,i}$ [barns] is needed to be able to perform 
 consistent interpolations. (Here, the subscript $s$ denotes the scattering channel, 
 the subscripts $g$ \& $h$ index $G$ incident and exiting energies, and the subscript
-$i$ indexes $I$ species.)  This parameter is notbaly more important in thermal reactors
+$i$ indexes $I$ species.)  This parameter is notably more important in thermal reactors
 than fast cores.  Furthermore, previous single energy group studies \cite{} did 
 not require the group-to-group scattering cross section at all because both 
-$g$ \& $h$ are intergated over.
+$g$ \& $h$ are integrated over.
 
 While most Monte Carlo neutron transport codes may compute few group cross
 sections (\emph{i.e.} $\sigma_{s,g,i}$), most fail to expose the distribution
 of neutron exiting energies after a reaction ($\sigma_{s,g\to h,i}$).  Those
-codes which do report exiting energies display only the sum over all consitiuent 
+codes which do report exiting energies display only the sum over all constituent 
 materials in the region of interest ($\sigma_{s,g\to h}$).  Thus obtaining 
 the parameters for a perturbation-based reactor model is itself a challenge.
 
@@ -101,24 +101,24 @@ codes were considered: MCNPX (v2.6+) and Serpent (v1.7+).  MCNPX confers the
 ability to compute $\sigma_{s,g,i}$.  Serpent by default will calculate 
 $\sigma_{s,g\to h}$ and allows the user to compute $\sigma_{s,g,i}$ as well.
 
-Becuase the group-to-group scattering cross section was already natively supported, 
-Serpent was ultimately chosen to statisfy the group constant generation needs of
+Because the group-to-group scattering cross section was already natively supported, 
+Serpent was ultimately chosen to satisfy the group constant generation needs of
 Char.  However, the source code of Serpent needed to be altered to support 
-the reporting of $\sigma_{s,g\to h,i}$.  This modified verion is available upon
+the reporting of $\sigma_{s,g\to h,i}$.  This modified version is available upon
 request from the author\footnote{This is subject to the same license and restrictions
 as Serpent itself.}.
 
 The success of the perturbation-based multigroup model itself serves to validate
 the modifications made to Serpent.  However, this study presents a sensitivity study 
-which focuses on the group-to-gorup scattering cross section as calculated via 
+which focuses on the group-to-group scattering cross section as calculated via 
 the modified Serpent.  Here the fuel pin radius set to two different values and 
 $\sigma_{s,g\to h,i}$ is calculated for all nuclides.  Values for the scattering 
 kernel for intermediate fuel radii were then found via interpolation and modified Serpent 
 and compared.  Additionally full-core and region group constants were also compared.
 
-In \S \ref{sec:methodology} is an explantion of the modifications made to Serpent 
+In \S \ref{sec:methodology} is an explanation of the modifications made to Serpent 
 and the detailing of the sensitivity study performed.  In \S \ref{sec:results} the 
-reults of the sensitivity study are presented.  Lastly, \S \ref{sec:conclusions}
+results of the sensitivity study are presented.  Lastly, \S \ref{sec:conclusions}
 discusses concluding remarks and potential future work.
 
 \section{METHODOLOGY} 
@@ -156,11 +156,11 @@ P_{g\to h} = \frac{\sum_i^I m_i \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_
 The desired parameter, either $\sigma_{s,g\to h,i}$ or $P_{g\to h,i}$, lies within
 the summation in equation \ref{P_serp}.
 
-Therefore to obtain nuclide-specific scattering kernels Serpernt must be prevented
+Therefore to obtain nuclide-specific scattering kernels Serpent must be prevented
 from executing the above summation for all but the desired species.  Hence, the 
 appropriate loop was found and a material filter was added.  As a Monte Carlo code, 
-this filter would only be triggered if a scattering reaction occured.  Thus the
-addition of this filter did not adversely affect other tallies.  Moreoever, this
+this filter would only be triggered if a scattering reaction occurred.  Thus the
+addition of this filter did not adversely affect other tallies.  Moreover, this
 filter was included after all physics calculations but prior to reporting.  The 
 physics of the reactor was not altered by the use of the filter.
 
@@ -172,7 +172,7 @@ option.  This has the syntax `set gtpmat $<$material label$>$'.
 
 Serpent normally outputs the group transfer probability and the group-to-group
 scattering cross section to the GTRANSFP and GTRANSFXS variables respectively.
-Howver by using `gtpmat', GTRANSFP takes on the filtered value while GTRANSFXS
+However by using `gtpmat', GTRANSFP takes on the filtered value while GTRANSFXS
 is invalidated.  The loss of meaning for GTRANSFXS here is not problematic
 because, using the detector capability of Serpent, $\sigma_{s,g,i}$ may computed.
 This can then be convolved with the newly computed $P_{g\to h,i}$ to obtain
@@ -186,19 +186,19 @@ command.
 \subsection{Group-to-Group Interpolations}
 
 The primary purpose of storing sets of multigroup cross sections is 
-to be able to interpolate between them.  Since interpolations of existsing 
+to be able to interpolate between them.  Since interpolations of existing 
 data is orders of magnitude faster than computing new values via neutron 
 transport methods, this allows a perturbation-based reactor model to have
 run-time, reactor-state-specific group constants.  Such a model has been
 demonstrated \cite{}.  While $\sigma_{s,g,i}$ was explicitly 
 verified, the validity of interpolating the group-to-group scattering
 cross section was only checked via its aggregation.  Here, interpolations on
-$\sigma_{s,g\to h,i}$ are tested explictly.
+$\sigma_{s,g\to h,i}$ are tested explicitly.
 
-The state of the reactor and coorespeonding experimental variables are taken
+The state of the reactor and corresponding experimental variables are taken
 to be the same as in \cite{}.  Neutron energies were discretized into a 19-group
-stracture desinged to more finely capture the epithermal region.  Call $E$ [MeV]
-a neutron energy. Then $E_g$ [MeV] denotes the energy group boundries.
+structure designed to more finely capture the epithermal region.  Call $E$ [MeV]
+a neutron energy. Then $E_g$ [MeV] denotes the energy group boundaries.
 These are displayed in Table \ref{group_boundaries}.
 \begin{table}[htbp]
 \begin{center}
@@ -285,7 +285,7 @@ parameter is a function of both incident and exiting energy groups.
 \end{equation}
 Positive values of $\epsilon$ indicate that the interpolation over-predicts
 the value of the scattering cross section for that $g$ \& $h$ combination.
-Negative $\epsilon$ means that an under-prediction has occured.  For this
+Negative $\epsilon$ means that an under-prediction has occurred.  For this
 interpolation technique to be valid, $\epsilon$ should be small for all
 incident and exiting neutron energy groups.
 
@@ -294,7 +294,7 @@ valid for a specific $g$ \& $h$, it does not grant any insight into how the
 interpolated scattering kernel performs as a whole.  For this reason, a summary 
 metric is desired.  Treating both $\sigma_{s,g\to h,i}^{*}$ and $\sigma_{s,g\to h,i}$ 
 as independent measurements of the same underlying physical parameter, the degree of 
-likeness between them may be determied using Kendall's $\tau$.
+likeness between them may be determined using Kendall's $\tau$.
 
 Kendall's $\tau$ is a standard, unitless, statistical rank correlation coefficient.
 It is defined on the range $[-1,1]$.  When $\tau=+1$ the inputs are in perfect agreement,
@@ -302,33 +302,33 @@ for $\tau=-1$ the measurements are in perfect disagreement, and with $\tau=0$ th
 two inputs are fully independent of one another.  For the scattering kernel, 
 values closer to unity are desired.
 
-For an explantation of why the Kendall $\tau$ test is necessary, consider the following
-scenario.  Suppose a nuclide is found with an unaccpetablly large fractional 
+For an explanation of why the Kendall $\tau$ test is necessary, consider the following
+scenario.  Suppose a nuclide is found with an unacceptably large fractional 
 difference $\epsilon$ for some $g$ \& $h$.  If the value of $\tau$ is sufficiently
 close to 1, this implies that the majority of the scattering cross section 
 remains valid.  Indeed, there is likely some mitigating factor for the 
-group constant which is off.  Further investigation is likely warrented.
+group constant which is off.  Further investigation is likely warranted.
 
 Lastly, the interpolations and analysis were performed for the LWR only
-at the beggining of life.  This was to minimize extraneous sources of error
+at the beginning of life.  This was to minimize extraneous sources of error
 coming from interpolating on flunece as well.  Changing the fuel radius also 
 alters the burnup profile.  Considering only zero times is done without
-loss of generality; cross sections may be interpolated for any equivelent 
+loss of generality; cross sections may be interpolated for any equivalent 
 fluences.
 
 \section{RESULTS} 
 \label{sec:results}
 
 Group-to-group scattering cross section interpolations were performed for
-each nuclide for three fuel radii (0.3895, 0.41, and 0.4305 [cm]) inbetween two 
+each nuclide for three fuel radii (0.3895, 0.41, and 0.4305 [cm]) in between two 
 fuel radii (0.369 and 0.451 [cm]) results generated from the modified version of
-Serpent.  The interpolated values were then compared to the equivelent data 
+Serpent.  The interpolated values were then compared to the equivalent data 
 generated using Serpent.  Summary statistics are presented in 
 Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpoltation at $r_{\mbox{fuel}}=0.3895$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.3895$ [cm]}
 \label{r25}
 \input{r25}
 \end{center}
@@ -336,7 +336,7 @@ Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpoltation at $r_{\mbox{fuel}}=0.41$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.41$ [cm]}
 \label{r50}
 \input{r50}
 \end{center}
@@ -344,13 +344,13 @@ Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpoltation at $r_{\mbox{fuel}}=0.4305$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.4305$ [cm]}
 \label{r75}
 \input{r75}
 \end{center}
 \end{table}
 
-These summary tables contain all of the nuclides Serpent may natively ccompute
+These summary tables contain all of the nuclides Serpent may natively compute
 (\emph{i.e.} those present in ENDF/B-VII \cite{}).  The nuclides are sorted from
 highest-to-lowest maximum absolute value of the fractional difference $\epsilon$
 for all $g$ \& $h$.  Thus the top entry gives a maximal error for all group
@@ -363,8 +363,8 @@ the group-to-group scattering cross section is within $\pm 5\%$ of the measured
 value.  Thus in most cases $\epsilon$ is enough to conclude that interpolation 
 is a valid run-time technique for generating scattering kernels.
 
-Furthermore many species have fractional differneces within the 2\% mark. 
-It is especially impotant to note that \nuc{H}{1} and \nuc{O}{16} lie in 
+Furthermore many species have fractional differences within the 2\% mark. 
+It is especially important to note that \nuc{H}{1} and \nuc{O}{16} lie in 
 this regime.  Hydrogen in an LWR is the primary mechanism of neutron 
 moderation.  (Oxygen, via its chemical bond with hydrogen in water, also 
 plays an important roll).  That the scattering cross sections for these nuclides
@@ -375,14 +375,14 @@ However, some nuclides have fractional differences which are above the
 shown in the third column of Tables \ref{r25}-\ref{r75}.  The value of
 $\tau$ is always greater than $0.75$ and is overwhelmingly much closer to 1.
 This result implies that even for nuclides which have a $\sigma_{s,g\to h,i}$ which
-is significantly off, that the off indices $g$ \& $h$ are relatively isoloated.  
+is significantly off, that the off indices $g$ \& $h$ are relatively isolated.  
 The rest of the scattering kernel for such species remains valid.
 
-That said, the group constants whose intepolations do lead to significant error
-demand investigation.  Columns 4 and 5 display the incident and exiting indicies 
+That said, the group constants whose interpolations do lead to significant error
+demand investigation.  Columns 4 and 5 display the incident and exiting indices 
 $g$ \& $h$ at which the maximum absolute $\epsilon$ occurs.  Column 6 shows
 the Serpent-computed value of $\sigma_{s,g\to h,i}$ for these indices while column 7
-shows the cooresponding group transfer probability.  Lastly, column 8 presents 
+shows the corresponding group transfer probability.  Lastly, column 8 presents 
 $R_{a/s,g,i}$ [unitless], or the ratio of the absorption cross section to the 
 scattering cross section for the $g$\superscript{th} group.  Namely:
 \begin{equation}
@@ -395,7 +395,7 @@ but also large $R_{a/s,g,i}$.  In these cases, the indicated errors in the
 scattering cross section are not important because the reaction rate is dominated
 by absorption rather than scattering.  For \nuc{Cm}{247} here, an incident neutron is
 over 42 times more likely to be captured than to scatter into any other energy.  
-Therefore, the errors in the scattering kerenel are insignificant to the performance
+Therefore, the errors in the scattering kernel are insignificant to the performance
 of the reactor as a whole.  This argument holds for all species with $1 << R_{a/s,g,i}$.
 
 Still, some nuclides have relatively high $\epsilon$ values and 
@@ -424,7 +424,7 @@ This study demonstrates that stock Monte Carlo neutron transport codes,
 such as MCNPX or Serpent, can be used to generate group-to-group scattering 
 cross sections.  This capability enables the construction of a multi-energy
 group cross section libraries.  Such libraries may then be used by a reactor 
-model to form state-specifc cross sections at run time.  
+model to form state-specific cross sections at run time.  
 
 In a prior study, the reactor state specific cross sections were found
 via linear interpolations.  Previously, only $\sigma_{s,g,i}$ was 
@@ -432,15 +432,15 @@ explicitly verified.  In this paper, the fuel pin radius was varied.
 Interpolations of $\sigma_{s,g\to h,i}$ were taken and compared against
 the results of additional Serpent runs for matching $r_{\mbox{fuel}}$.
 
-For most species, interoplated group-to-group scattering cross sections
+For most species, interpolated group-to-group scattering cross sections
 were found to be well within acceptable error.  However, there were three
-clasifications of nuclides outside of reasonable bounds. In the first set,
+classifications of nuclides outside of reasonable bounds. In the first set,
 the absorption cross section was much larger than the scattering cross
 section, so the accuracy of $\sigma_{s,g\to h,i}$ is less important. 
-In the second type, the probablilty of scattering event occurign was low
+In the second type, the probability of scattering event occurring was low
 compared to other scatter events.  Lastly, some species are uncommon within
 the reactor core so interpolation errors on the scattering cross section
-are less relevent.  
+are less relevant.  
 
 Thus this paper shows that the group-to-group scattering cross sections may be 
 both generated using Serpent for specific isotopes as well as interpolated, 
@@ -449,9 +449,9 @@ which is orders of magnitude faster.
 Potential future work would be to compute the discretized group-to-group 
 scattering cross section directly from a known neutron flux spectrum and
 the raw nuclear data (ENDF/B-VII).  This is similar in scope to some of the
-capabilities of NJOY \cite{}.  Such a task would forego the need to 
+capabilities of NJOY \cite{}.  Such a task would forgo the need to 
 perform a Serpent run for each nuclide.  This more deterministic method would 
-be preffered for rare species, for which Monte Carlo codes sometime need 
+be preferred for rare species, for which Monte Carlo codes sometime need 
 additional particle histories.  Additionally, computing the kernel 
 directly would likely reduce other sources of algorithmic error.
 
