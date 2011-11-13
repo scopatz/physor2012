@@ -370,7 +370,7 @@ The rest of the scattering kernel for such species remains valid.
 
 That said, the group constants whose intepolations do lead to significant error
 demand investigation.  Columns 4 and 5 display the incident and exiting indicies 
-$g$ \& $\h$ at which the maximum absolute $\epsilon$ occurs.  Column 6 shows
+$g$ \& $h$ at which the maximum absolute $\epsilon$ occurs.  Column 6 shows
 the Serpent-computed value of $\sigma_{s,g\to h,i}$ for these indices while column 7
 shows the cooresponding group transfer probability.  Lastly, column 8 presents 
 $R_{a/s,g,i}$ [unitless], or the ratio of the absorption cross section to the 
@@ -397,8 +397,13 @@ neutron will likely not scatter into the $h$\superscript{th} group.  Therefore t
 relatively higher error in this part of the group-to-group scattering cross section 
 is less important to the overall reactor as well.
 
-
-
+Thus the problematic species which remain are those which have $P_{g\to h,i}$ close 
+to 1, $R_{a/s,g,i} < 1$, and high $\epsilon$.  A representative of this class is
+\nuc{Na}{23} in Table \ref{r50}.  However, such nuclides are generally only present
+in an LWR is trace amounts.  Their low number density pushes down their reaction rate
+and thus their importance.  For example, \nuc{Na}{23} generally only exists in an 
+LWR as a fission product.  (Sodium, being highly chemically reactive with water, is
+generally left out as a design material.)
 
 \clearpage
 
