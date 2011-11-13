@@ -279,8 +279,27 @@ Negative $\epsilon$ means that an under-prediction has occured.  For this
 interpolation technique to be valid, $\epsilon$ should be small for all
 incident and exiting neutron energy groups.
 
+While $\epsilon$ is sufficient for testing that $\sigma_{s,g\to h,i}$ is 
+valid for a specific $g$ \& $h$, it does not grant any insight into how the 
+interpolated scattering kernel performs as a whole.  For this reason, a summary 
+metric is desired.  Treating both $\sigma_{s,g\to h,i}^{*}$ and $\sigma_{s,g\to h,i}$ 
+as independent measurements of the same underlying physical parameter, the degree of 
+likeness between them may be determied using Kendall's $\tau$.
 
-w.l.o.g only BOL
+Kendall's $\tau$ is a standard, unitless, statistical rank correlation coefficient.
+It is defined on the range $[-1,1]$.  When $\tau=+1$ the inputs are in perfect agreement,
+for $\tau=-1$ the measurements are in perfect disagreement, and with $\tau=0$ the 
+two inputs are fully independent of one another.  For the scattering kernel, 
+values closer to unity are desired.
+
+For an explantation of why the Kendall $\tau$ test is necessary, consider the following
+scenario.  Suppose a nuclide is found with an unaccpetablly large fractional 
+difference $\epsilon$ for some $g$ \& $h$.  If the value of $\tau$ is sufficiently
+close to 1, this implies that the majority of the scattering cross section 
+remains valid.  Indeed, there is likely some mitigating factor for the 
+group constant which is off.  Further investigation is likely warrented.
+
+Lastly, 
 
 \section{RESULTS} 
 \label{sec:results}
