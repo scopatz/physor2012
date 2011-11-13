@@ -190,7 +190,6 @@ to be the same as in \cite{}.  Neutron energies were discretized into a 19-group
 stracture desinged to more finely capture the epithermal region.  Call $E$ [MeV]
 a neutron energy. Then $E_g$ [MeV] denotes the energy group boundries.
 These are displayed in Table \ref{group_boundaries}.
-
 \begin{table}[htbp]
 \begin{center}
 \caption{Energy Group Boundaries $E_g$}
@@ -217,8 +216,43 @@ These are displayed in Table \ref{group_boundaries}.
 The core considered here was a standard light-water reactor (LWR) taken from an
 OECD/NEA Burnup Credit Criticality report \cite{}.  The reactor was modeled as
 an infinite lattice of fuel pin cells.  The benchmark (unperturbed) state of the 
-reactor may be seen in Table \ref{}.
+reactor may be seen in Table \ref{benchmark_rx_state}.
+\begin{table}[htbp]
+\begin{center}
+\caption{Benchmark Reactor State}
+\label{benchmark_rx_state}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Parameter}            & \textbf{Symbol}      & \textbf{Value} \\
+\hline
+Fuel Density                  & $\rho_{\mbox{fuel}}$ & 10.7 g/cm\superscript{3}  \\
+Cladding Density              & $\rho_{\mbox{clad}}$ & 5.87 g/cm\superscript{3}  \\
+Coolant Density               & $\rho_{\mbox{cool}}$ & 0.73 g/cm\superscript{3}  \\
+Fuel Cell Radius              & $r_{\mbox{fuel}}$    & 0.41 cm \\
+Void Cell Radius              & $r_{\mbox{void}}$    & 0.4595 cm \\
+Cladding Cell Radius          & $r_{\mbox{clad}}$    & 0.52165 cm \\
+Unit Cell Pitch               & $\ell$               & 1.3127 cm \\
+Number of Burn Regions        & $b_r$                & 10 \\
+Fuel Specific Power           & $p_s$                & 0.04 MW/kgIHM \\
+Initial \nuc{U}{235} Mass Fraction & $T_{\mbox{\nuc{U}{235}}0}$ & 0.04 kg\subscript{i}/kgIHM \\
+Initial \nuc{U}{238} Mass Fraction & $T_{\mbox{\nuc{U}{238}}0}$ & 0.96 kg\subscript{i}/kgIHM \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
+To test the validity of interpolating on the group-to-group scattering cross section, 
+the benchmark reactor was perturbed twice.  The fuel radius $r_{\mbox{fuel}}$ [cm]
+was altered to ensure that non-trivial changes would be made to $\sigma_{s,g\to h,i}$
+for at least some nuclides.  Perturbing only the fuel radius has the effect of 
+altering the fuel-to-moderator ratio, a highly-important parameter in thermal reactors
+such as LWRs.
+
+Hence, the modified Serpent code was run for fuel radii of $\pm 10\%$
+the benchmark values. The additional `gtpmat' card was used to create 
+group-to-group scattering cross sections for each nuclide under consideration.
+
+w.l.o.g only BOL
 
 \section{RESULTS} 
 \label{sec:results}
@@ -245,4 +279,7 @@ by J. Wagner (ORNL) and James Warsa (LANL). Their help is greatly appreciated.
 \bibliography{library}
 
 \end{document}
+
+
+
 

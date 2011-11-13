@@ -155,7 +155,7 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
         #else:
         #    print nuc, kendalltau(is_gh[nuc], s_gh[nuc])[0]
     res = np.array(res, dtype=avl_dtype)
-    #print res
+    print res
     array2tabular(res, label + '.tex')
 
 
