@@ -368,6 +368,30 @@ This result implies that even for nuclides which have a $\sigma_{s,g\to h,i}$ wh
 is significantly off, that the off indices $g$ \& $h$ are relatively isoloated.  
 The rest of the scattering kernel for such species remains valid.
 
+That said, the group constants whose intepolations do lead to significant error
+demand investigation.  Columns 4 and 5 display the incident and exiting indicies 
+$g$ \& $\h$ at which the maximum absolute $\epsilon$ occurs.  Column 6 shows
+the Serpent-computed value of $\sigma_{s,g\to h,i}$ for these indices while column 7
+shows the cooresponding group transfer probability.  Lastly, column 8 presents 
+$R_{a/s,g,i}$ [unitless], or the ratio of the absorption cross section to the 
+scattering cross section for the $g$\superscript{th} group.  Namely:
+\begin{equation}
+\label{R_as}
+R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
+\end{equation}
+
+Some species, such as \nuc{Cm}{247} in Table \ref{r75}, have large fractional deviations
+but also large $R_{a/s,g,i}$.  In these cases, the indicated errors in the 
+scattering cross section are not important because the reaction rate is dominated
+by absorption rather than scattering.  For \nuc{Cm}{247} here, an incident neutron is
+over 42 times more likely to be captured than to scatter into any other energy.  
+Therefore, the errors in the scattering kerenel are insignificant to the performance
+of the reactor as a whole.  This argument holds for all species with $1 << R_{a/s,g,i}$.
+
+Still, some nuclides have relatively high $\epsilon$ values and 
+low absorption-to-scattering ratios.  Prime examples are \nuc{H}{3} and \nuc{He}{4}
+in Table \ref{r25}.  This is because these species have effectively no 
+absorption cross section.
 
 
 \clearpage

@@ -113,7 +113,7 @@ avl_dtype = np.dtype([
     ('$h$', int),
     ('$\\sigma_{s,g\\to h,i}$', float),
     ('$P_{g\\to h,i}$', float),
-    ('$R_{a/s,g}$', float),
+    ('$R_{a/s,g,i}$', float),
     ])
 
 
