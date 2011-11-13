@@ -265,6 +265,21 @@ scattering cross section is given simply as in equation \ref{lin_interp}:
 Such interpolations were carried out for three fuel radii: $-5%$, $+5%$, and the 
 benchmark $r_{\mbox{fuel}}$.
 
+The interpolated scattering cross sections were then compared to the `true'
+values (no superscript), as computed via Serpent. A fractional difference 
+$\epsilon$ [unitless] is defined as in \cite{}.  Here however, this normalized 
+parameter is a function of both incident and exiting energy groups.
+\begin{equation}
+\label{epsilon_def}
+\epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1
+\end{equation}
+Positive values of $\epsilon$ indicate that the interpolation over-predicts
+the value of the scattering cross section for that $g$ \& $h$ combination.
+Negative $\epsilon$ means that an under-prediction has occured.  For this
+interpolation technique to be valid, $\epsilon$ should be small for all
+incident and exiting neutron energy groups.
+
+
 w.l.o.g only BOL
 
 \section{RESULTS} 
