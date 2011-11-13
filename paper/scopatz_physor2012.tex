@@ -405,22 +405,50 @@ and thus their importance.  For example, \nuc{Na}{23} generally only exists in a
 LWR as a fission product.  (Sodium, being highly chemically reactive with water, is
 generally left out as a design material.)
 
-\clearpage
+%\clearpage
 
-%
 \section{CONCLUSIONS \& FUTURE WORK}
 \label{sec:conclusions}
-%
-Present your summary and conclusions here.
-%
+
+This study demonstrates that stock Monte Carlo neutron transport codes,
+such as MCNPX or Serpent, can be used to generate group-to-group scattering 
+cross sections.  This capability enables the construction of a multi-energy
+group cross section libraries.  Such libraries may then be used by a reactor 
+model to form state-specifc cross sections at run time.  
+
+In a prior study, the reactor state specific cross sections were found
+via linear interpolations.  Previously, only $\sigma_{s,g,i}$ was 
+explicitly verified.  In this paper, the fuel pin radius was varied.
+Interpolations of $\sigma_{s,g\to h,i}$ were taken and compared against
+the results of additional Serpent runs for matching $r_{\mbox{fuel}}$.
+
+For most species, interoplated group-to-group scattering cross sections
+were found to be well within acceptable error.  However, there were three
+clasifications of nuclides outside of reasonable bounds. In the first set,
+the absorption cross section was much larger than the scattering cross
+section, so the accuracy of $\sigma_{s,g\to h,i}$ is less important. 
+In the second type, the probablilty of scattering event occurign was low
+compared to other scatter events.  Lastly, some species are uncommon within
+the reactor core so interpolation errors on the scattering cross section
+are less relevent.  
+
+Thus this paper shows that the group-to-group scattering cross sections may be 
+both generated using Serpent for specific isotopes as well as interpolated, 
+which is orders of magnitude faster.
+
+Potential future work would be to compute the discretized group-to-group 
+scattering cross section directly from a known neutron flux spectrum and
+the raw nuclear data (ENDF/B-VII).  Such a task would forego the need to 
+perform a Serpent run for each nuclide.  This more deterministic method would 
+be preffered for rare species, for which Monte Carlo codes sometime need 
+additional particle histories.  Additionally, computing the kernel 
+directly would likely reduce other sources of algorithmic error.
+
+
 \section*{ACKNOWLEDGEMENTS}
 %
 Acknowledge the help of colleagues and sources of funding, as appropriate.
-%
-The format for this template was adapted from the template for Math and Computation 2009 
-posted on the Internet.  Most of the \LaTeX\ format definitions contained
-in this and the accompanying files were adapted from sample files supplied 
-by J. Wagner (ORNL) and James Warsa (LANL). Their help is greatly appreciated.
+
 
 %
 \setlength{\baselineskip}{12pt}
