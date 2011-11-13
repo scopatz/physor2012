@@ -251,6 +251,18 @@ such as LWRs.
 Hence, the modified Serpent code was run for fuel radii of $\pm 10\%$
 the benchmark values. The additional `gtpmat' card was used to create 
 group-to-group scattering cross sections for each nuclide under consideration.
+Denote the $+10\%$ data with superscript ``$+$'' and the $-10\%$ data with the 
+superscript ``$-$''.  Also set the superscript ``$*$'' as data interpolated
+from the previous two calculated sets.  A linear interpolation of the 
+scattering cross section is given simply as in equation \ref{lin_interp}:
+\begin{equation}
+\label{lin_interp}
+\sigma_{s,g\to h,i}^{*} = \left(\sigma_{s,g\to h,i}^{+} - \sigma_{s,g\to h,i}^{-}\right)\cdot
+                          \frac{r_{\mbox{fuel}}^{*} - r_{\mbox{fuel}}^{-}}
+                               {r_{\mbox{fuel}}^{+} - r_{\mbox{fuel}}^{-}} + 
+                          \sigma_{s,g\to h,i}^{-}
+\end{equation}
+
 
 w.l.o.g only BOL
 
