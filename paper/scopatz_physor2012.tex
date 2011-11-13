@@ -189,7 +189,36 @@ The state of the reactor and coorespeonding experimental variables are taken
 to be the same as in \cite{}.  Neutron energies were discretized into a 19-group
 stracture desinged to more finely capture the epithermal region.  Call $E$ [MeV]
 a neutron energy. Then $E_g$ [MeV] denotes the energy group boundries.
-These are displayed in Table \ref{}.
+These are displayed in Table \ref{group_boundaries}.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Energy Group Boundaries $E_g$}
+\label{group_boundaries}
+\begin{tabular}{|c|c||c|c|}
+\hline
+\textbf{$g$} & \textbf{$E_g$ [MeV]} & \textbf{$g$} & \textbf{$E_g$ [MeV]} \\
+\hline
+1  & 10      & 11 & 2.15E-5 \\ 
+2  & 1       & 12 & 1.29E-5 \\ 
+3  & 0.1     & 13 & 7.74E-6 \\
+4  & 0.01    & 14 & 4.64E-6 \\
+5  & 3.16E-3 & 15 & 2.78E-6 \\
+6  & 1.00E-3 & 16 & 1.67E-6 \\
+7  & 3.16E-4 & 17 & 1.00E-6 \\
+8  & 1.00E-4 & 18 & 1.00E-7 \\
+9  & 5.99E-5 & 19 & 1.00E-8 \\
+10 & 3.59E-5 & 20 & 1.00E-9 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The core considered here was a standard light-water reactor (LWR) taken from an
+OECD/NEA Burnup Credit Criticality report \cite{}.  The reactor was modeled as
+an infinite lattice of fuel pin cells.  The benchmark (unperturbed) state of the 
+reactor may be seen in Table \ref{}.
+
 
 \section{RESULTS} 
 \label{sec:results}
@@ -216,3 +245,4 @@ by J. Wagner (ORNL) and James Warsa (LANL). Their help is greatly appreciated.
 \bibliography{library}
 
 \end{document}
+
