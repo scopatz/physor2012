@@ -76,10 +76,12 @@ def sort_frac_diff(fdiff):
 avl_dtype = np.dtype([
     ('nuclide', 'S6'),
     ('$\\epsilon$', float),
-    ('$g$', float),
-    ('$h$', float),
+    ('$\\tau$', float),
+    ('$g$', int),
+    ('$h$', int),
     ('$\\sigma_{s,g\\to h,i}$', float),
     ('$P_{g\\to h,i}$', float),
+    ('$R_{a/s,g}$', float),
     ])
 
 
@@ -110,14 +112,17 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
         h = ind % 19
         if (s_gh[nuc][g,h] != 0.0)  and (is_gh[nuc][g,h] != 0.0) and \
            (s_gh0[nuc][g,h] != 0.0) and (s_gh1[nuc][g,h] != 0.0):
-            row = (nuc, val, g, h, s_gh[nuc][g,h], 
-                  gtp[nuc][g,h], 
-                  s_a[nuc][g] / s_g[nuc][g], 
-                  kendalltau(is_gh[nuc], s_gh[nuc])[0] )
+            row = (nuc, val, 
+                   kendalltau(is_gh[nuc], s_gh[nuc])[0],
+                   g, h, 
+                   s_gh[nuc][g,h], 
+                   gtp[nuc][g,h], 
+                   s_a[nuc][g] / s_g[nuc][g], 
+                   )
             res.append(row)
         #else:
         #    print nuc, kendalltau(is_gh[nuc], s_gh[nuc])[0]
-    #res = np.array(res)
+    res = np.array(res, dtype=avl_dtype)
     print res
 
 def main():
@@ -127,8 +132,8 @@ def main():
 
     p_offset = 0
 
-    analyze_vs_lib(r25, PHYSPATH, 10, p_offset, 'r25')
-    #analyze_vs_lib(r50, BASEPATH, 0,  p_offset, 'r50')
+    #analyze_vs_lib(r25, PHYSPATH, 10, p_offset, 'r25')
+    analyze_vs_lib(r50, BASEPATH, 0,  p_offset, 'r50')
     #analyze_vs_lib(r75, PHYSPATH, 15, p_offset, 'r75')
     
 
