@@ -8,7 +8,8 @@
 %
 % Define title...
 %
-\title{GENERATING NUCLIDE-SPECIFIC SCATTERING KERNELS WITH SERPENT}
+\title{INTERPOLATIONS OF NUCLIDE-SPECIFIC SCATTERING KERNELS \\
+       GENERATED WITH SERPENT}
 %
 % ...and authors
 %
@@ -26,7 +27,7 @@
 \newcommand{\authorHead}      % Author's names here
            {A. M. Scopatz and E. A. Schneider}  
 \newcommand{\shortTitle}      % Short title here
-           {Gneerating Nuclide-Specific Scattering Kernels with Serpent}
+           {Interpolations of Nuclide-Specific Scattering Kernels Generated with Serpent}
 
 
 %General Short-Cut Commands
@@ -44,13 +45,22 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  Use 8.5$\times$11 paper size, with 1'' margins on all sides.  A required 200-250 
-  word abstract starts on this line.  Leave two blank lines before ``ABSTRACT''
-  and one after.  Use 10 point Times New Roman here and single 
-  spacing. The abstract is a very brief summary highlighting main 
-  accomplishments, what is new, and how it relates to the state-of-the-art.
+    The neutron group-to-group scattering cross section is an essential
+    input parameter for any multi-energy group physics model.  However,
+    obtaining this data for a single species of a material has been 
+    historically difficult.  Here, the Monte Carlo neutron transport code
+    Serpent was modified to return the group transfer probabilites on 
+    a per-nuclide basis.  This ability is useful in the context of 
+    essenital physics reactor models where cross section perturbations
+    are used to quickly generate reactor state depenedent group constants at 
+    run time.  The modified version of Serpent was therefore verified with three
+    interpolation cases.  For most species, interpolation resulted in errors of
+    less than 5\% of transport-computed values.  For important scatterers, 
+    such as \nuc{H}{1} and \nuc{O}{16}, errors less than 2\% were observed.
+    For nuclides with high errors ($>10\%$), the scattering channel typically
+    only had a small probablitity of occuring.
 \end{abstract}
-\keywords{List of at most five key words}
+\keywords{essential physics, neutron scattering, serpent}
 
 
 \section{INTRODUCTION} 
@@ -438,7 +448,8 @@ which is orders of magnitude faster.
 
 Potential future work would be to compute the discretized group-to-group 
 scattering cross section directly from a known neutron flux spectrum and
-the raw nuclear data (ENDF/B-VII).  Such a task would forego the need to 
+the raw nuclear data (ENDF/B-VII).  This is similar in scope to some of the
+capabilities of NJOY \cite{}.  Such a task would forego the need to 
 perform a Serpent run for each nuclide.  This more deterministic method would 
 be preffered for rare species, for which Monte Carlo codes sometime need 
 additional particle histories.  Additionally, computing the kernel 
