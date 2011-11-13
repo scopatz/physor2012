@@ -73,6 +73,38 @@ def sort_frac_diff(fdiff):
     return s
 
 
+def dtype2template(dt):
+    conv = []
+    for i, name in enumerate(dt.names):
+        t = dt.fields[name][0].type
+        if issubclass(t, np.float_):
+            conv.append("{" + str(i) + ":.3F}")
+        else:
+            conv.append("{" + str(i) + "}")
+    template = " & ".join(conv) + "\\\\\n"
+    return template
+
+
+def array2tabular(a, path=""):
+    end = "\\\\\n"
+
+    header = "\\begin{tabular}{|l|" + "c"*(len(a.dtype)-1) + "|}\n"
+    header += "\\hline\n"
+    header += " & ".join(a.dtype.names) + end
+    header += "\\hline\n"
+
+    body = ""
+    dtem = dtype2template(a.dtype)
+    for row in a:
+        body += dtem.format(*row) 
+
+    footer = "\\hline\n\\end{tabular}"
+    
+    s = header + body + footer
+    with open(path, 'w') as f:
+        f.write(s)
+
+
 avl_dtype = np.dtype([
     ('nuclide', 'S6'),
     ('$\\epsilon$', float),
@@ -123,7 +155,9 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
         #else:
         #    print nuc, kendalltau(is_gh[nuc], s_gh[nuc])[0]
     res = np.array(res, dtype=avl_dtype)
-    print res
+    #print res
+    array2tabular(res, label + '.tex')
+
 
 def main():
     r25 = 0.3895
@@ -132,9 +166,9 @@ def main():
 
     p_offset = 0
 
-    #analyze_vs_lib(r25, PHYSPATH, 10, p_offset, 'r25')
-    analyze_vs_lib(r50, BASEPATH, 0,  p_offset, 'r50')
-    #analyze_vs_lib(r75, PHYSPATH, 15, p_offset, 'r75')
+    analyze_vs_lib(r25, PHYSPATH, 10, p_offset, '../paper/r25')
+    analyze_vs_lib(r50, BASEPATH, 0,  p_offset, '../paper/r50')
+    analyze_vs_lib(r75, PHYSPATH, 15, p_offset, '../paper/r75')
     
 
 if __name__ == '__main__':
