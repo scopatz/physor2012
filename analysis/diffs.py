@@ -146,7 +146,7 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
            (s_gh0[nuc][g,h] != 0.0) and (s_gh1[nuc][g,h] != 0.0):
             row = (nuc, val, 
                    kendalltau(is_gh[nuc], s_gh[nuc])[0],
-                   g, h, 
+                   g+1, h+1, 
                    s_gh[nuc][g,h], 
                    gtp[nuc][g,h], 
                    s_a[nuc][g] / s_g[nuc][g], 
