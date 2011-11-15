@@ -57,7 +57,7 @@
     therefore verified with three interpolation cases designed to test the resilience 
     of the interpolation scheme to changes in intragroup fluxes.  For most species, 
     interpolation resulted in errors of less than 5\% of transport-computed values.  
-    For important scatterers, such as \nuc{O}{16}, errors less than 2\% were observed.
+    For important scatterers, such as \nuc{H}{1}, errors less than 2\% were observed.
     For nuclides with high errors ($>10\%$), the scattering channel typically
     only had a small probability of occurring.
 \end{abstract}
@@ -318,9 +318,9 @@ for $\tau=-1$ the measurements are in perfect disagreement, and with $\tau=0$ th
 two inputs are fully independent of one another.  For the scattering kernel,
 values closer to unity are desired.
 
-The value $\tau$ is contructed by first sorting the values of both measurements.
+The value $\tau$ is constructed by first sorting the values of both measurements.
 For every pair of elements in both measurements consistent, strict monotonicity
-is checked.  Thus $\tau$ is the number of stictly monotonic pairs minus the number
+is checked.  Thus $\tau$ is the number of strictly monotonic pairs minus the number
 of non-strictly monotonic pairs divided by the total number of pairs.  
 Pairs which are equivalent are not counted.  Here, the scattering kernels
 were flattened prior to the evaluation of $\tau$.  Kendall's $\tau$ was 
@@ -397,7 +397,7 @@ moderation.
 However, some nuclides have fractional differences which are above the
 \emph{a priori} acceptability mark.  For such species, Kendall's $\tau$ is
 shown in the third column of Tables \ref{r25}-\ref{r75}.  The value of
-$\tau$ is always greater than $0.75$ and is overwhelmingly much closer to 1.
+$\tau$ is always greater than $0.97$.
 This result implies that even for nuclides which have a $\sigma_{s,g\to h,i}$ which
 is significantly off, that the off indices $g$ \& $h$ are relatively isolated.
 The rest of the scattering kernel for such species remains valid.
@@ -413,12 +413,11 @@ scattering cross section for the $g$\superscript{th} group.  Namely:
 \label{R_as}
 R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
 \end{equation}
-*** again, this may change as I bet you those with big errors will fall off the table.  You can just say that larger errors arise in certain very low-abundance species ***
-Some species, such as \nuc{Cm}{247} in Table \ref{r75}, have large fractional deviations
+Some species, such as \nuc{U}{235} in Table \ref{r75}, have large fractional deviations
 but also large $R_{a/s,g,i}$.  In these cases, the indicated errors in the
 scattering cross section are not important because the reaction rate is dominated
-by absorption rather than scattering.  For \nuc{Cm}{247} here, an incident neutron is
-over 42 times more likely to be captured than to scatter into any other energy.
+by absorption rather than scattering.  For \nuc{U}{235} here, an incident neutron is
+over 94 times more likely to be captured than to scatter into any other energy.
 Therefore, the errors in the scattering kernel are insignificant to the performance
 of the reactor as a whole.  This argument holds for all species with $1 << R_{a/s,g,i}$.
 
@@ -434,7 +433,8 @@ is less important to the overall reactor as well.
 \section{CONCLUSIONS \& FUTURE WORK}
 \label{sec:conclusions}
 
-This study demonstrates the use of the Monte Carlo neutron transport code Serpent to generate group-to-group scattering
+This study demonstrates the use of the Monte Carlo neutron transport code 
+Serpent to generate group-to-group scattering
 cross sections.  This capability enables the construction of a multi-energy
 group cross section libraries.  Such libraries may then be used by a reactor
 model to form state-specific cross sections at run time.
@@ -446,20 +446,30 @@ Interpolations of $\sigma_{s,g\to h,i}$ were taken and compared against
 the results of additional Serpent runs for matching $r_{\mbox{fuel}}$.
 
 For most species, interpolated group-to-group scattering cross sections
-were found to be well within acceptable error.  *** I deleted a bunch of text here that reviewed what was said right above.  Instead, can you add a couple of sentences describing convergence studies to establish how coarsely-spaced the explicit calculations must be to ensure some level of fidelity?  That's probably the key bit of future work someone will have to do...***
+were found to be well within acceptable error.  However, this is a function
+of initial perturbations chosen ($\pm 10\%$).  It is expected that if larger
+initial perturbations were taken (20\%, 50\%, \emph{etc.}) that larger 
+algorithmic errors would result.  Still, the coarser the perturbation 
+structure is the fewer explicit evaluations of the neutron transport code 
+are required.
 
-Thus this paper shows that the group-to-group scattering cross sections may be
-both generated using Serpent for specific isotopes as well as interpolated for use in a fast multigroup solver.  Given low-error burnup-dependent cross section sets, a multigroup solver can achieve results of fidelity comparable to coupled transport-burnup calculations.
+Future work is needed to determine correct balance between perturbation 
+coarseness and $\sigma_{s,g\to h,i}$ fidelity.  In this study linear 
+interpolations were presented.  However, for reactors state parameters with 
+non-linear responses, other interpolation schemes (such as spline or radial
+basis functions) may be preferable.  Such a determination will also be needed.
 
-*** deleted last paragraph because transport will still be needed to get the known flux spectrum.  So, it wouldn't help much! ***
+This paper shows that the group-to-group scattering cross sections may be
+both generated using Serpent for specific isotopes as well as interpolated for 
+use in a fast multigroup solver.  Given low-error burnup-dependent cross section 
+sets, a multigroup solver can achieve results of fidelity comparable to coupled 
+transport-burnup calculations.
 
 
 \section*{ACKNOWLEDGEMENTS}
 The authors would like to thank Jaakko Lepp\"{a}nen for his guidance
 on Serpent's architecture.
 
-
-%
 \setlength{\baselineskip}{12pt}
 \bibliographystyle{physor}
 \bibliography{library}
