@@ -10,22 +10,14 @@ NUCLIDES = set(['U234',  'U235',  'U236',  'U238',  'NP237', 'PU238', 'PU239',
                 'PU240', 'PU241', 'PU242', 'AM241', 'AM242', 'AM243', 'CM242', 
                 'CM243', 'CM244', 'CM245', 'CM246', 'SE79',  'KR85',  'SR90',  
                 'ZR93',  'TC99',  'I129',  'PD107', 'CS134', 'CS135', 'CS137', 
-                'SM151', 'EU155', 'H1',    'H3',    'O16',   'HE4',   'NA23',])
+                'SM151', 'EU155', 'H1',    'H3',    'O16',   'HE4',])
 
 # Ensure only serpent nuclides
 NUCLIDES = (NUCLIDES & serp_nucs)
-NUCLIDES = serp_nucs
+#NUCLIDES = serp_nucs
 
 BASEPATH = '../data/lwr_base.h5'
 PHYSPATH = '../data/lwr_physor2012.h5'
-
-def round_sig(x, sig=2):
-    if x == 0.0:
-        r = x
-    else:
-        r = np.round(x, sig - np.int(np.floor(np.log10(np.abs(x)))) - 1)
-    return r
-    
 
 
 def load_sigma(nucs, lib, p):
@@ -81,18 +73,6 @@ def sort_frac_diff(fdiff):
     return s
 
 
-def dtype2template(dt):
-    conv = []
-    for i, name in enumerate(dt.names):
-        t = dt.fields[name][0].type
-        if issubclass(t, np.float_):
-            conv.append("{" + str(i) + ":.4F}")
-        else:
-            conv.append("{" + str(i) + "}")
-    template = " & ".join(conv) + "\\\\\n"
-    return template
-
-
 def array2tabular(a, path=""):
     end = "\\\\\n"
 
@@ -102,9 +82,7 @@ def array2tabular(a, path=""):
     header += "\\hline\n"
 
     body = ""
-    #dtem = dtype2template(a.dtype)
     for row in a[:44]:
-        #rounded = [round_sig(r, 3) for r in row if not isinstance(r, basestring)]
         rounded = [r for r in row if not isinstance(r, basestring)]
         strs = [row[0]]
         for r in rounded:
@@ -114,7 +92,6 @@ def array2tabular(a, path=""):
                 strs.append("{:.3F}".format(r)[:5])
         strs[3:5] = ["{}".format(int(gh)) for gh in rounded[2:4]]
         body += " & ".join(strs) + end
-        #body += dtem.format(row[0], *rounded) 
 
     footer = "\\hline\n\\end{tabular}"
     
