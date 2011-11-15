@@ -102,7 +102,8 @@ the input parameters for a perturbation-based reactor model is itself a challeng
 In the initial scoping of the library generation code Char two burnup-coupled transport
 codes were considered: MCNPX (v2.6+) \cite{Pelowitz2008} and Serpent (v1.7+) \cite{Lepp2011}.  
 MCNPX confers the ability to compute $\sigma_{s,g,i}$.  By default, Serpent will calculate
-$\sigma_{s,g\to h}$ for a region and $\sigma_{s,g,i}$ for each isotope, but it does not produce $\sigma_{s,g\to h,i}$ for each isotope.
+$\sigma_{s,g\to h}$ for a region and $\sigma_{s,g,i}$ for each isotope, but it does not 
+produce $\sigma_{s,g\to h,i}$ for each isotope.
 
 Because the group-to-group scattering cross section was already natively supported,
 Serpent was ultimately chosen to satisfy the group constant generation needs of
@@ -111,9 +112,13 @@ the reporting of $\sigma_{s,g\to h,i}$.  This modified version is available upon
 request from the author\footnote{This is subject to the same license and restrictions
 as Serpent itself.}.
 
-This study presents a verification of the interpolation scheme used in the multigroup model which focuses on the group-to-group scattering cross section as calculated via
-the modified Serpent.  Here the fuel pin radius is chosen as the physical parameter on which the dependence of the group constants is to be quantified.  It is set to two different values and
-$\sigma_{s,g\to h,i}$ is calculated for all nuclides using the modified Serpent code.  Values for the scattering kernel for intermediate fuel radii were then found via interpolation.  These two data sets were then compared.
+This study presents a verification of the interpolation scheme used in the multigroup 
+model which focuses on the group-to-group scattering cross section as calculated via
+the modified Serpent.  Here the fuel pin radius is chosen as the physical parameter on 
+which the dependence of the group constants is to be quantified.  It is set to two 
+different values and $\sigma_{s,g\to h,i}$ is calculated for all nuclides using the 
+modified Serpent code.  Values for the scattering kernel for intermediate fuel radii 
+were then found via interpolation.  These two data sets were then compared.
 
 In \S \ref{sec:methodology} is an explanation of the modifications made to Serpent
 and the approach used in the comparison study.  In \S \ref{sec:results} the
@@ -141,17 +146,29 @@ relations are true:
 \begin{equation}\label{P_sig_norm}P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}\end{equation}
 
 Serpent, like other physics codes, allows users to specify materials.
-Denote $m_i$ as the mass fraction of the $i$\superscript{th} nuclide
-in a material.  The scattering cross section of the material is thus
-the weighted sum of the constituent species:
-\begin{equation}\label{mat_norm}\sigma_{s,g\to h} = \sum_i^I m_i \cdot \sigma_{s,g\to h,i}\end{equation}
+Denote $N_i$ as the number density [$i$-atoms/cm\superscript{3}] of the $i$\superscript{th} 
+nuclide in a material and $N$ as the number density [atoms/cm\superscript{3}] of the material 
+itself.  They are defined as in equation \ref{num_dens} with
+$\rho_i$ [kg$_i$/cm\superscript{3}] as the $i$\superscript{th} mass density, $N_A$ 
+being Avogadro's number, and MW$_i$ as the $i$\superscript{th} molecular weight.
+\begin{equation}
+\label{num_dens}
+N_i = \frac{\rho_i N_A}{\mbox{MW}_i} 
+\end{equation}
+The scattering cross section of the material is thus the weighted sum of the 
+constituent species:
+\begin{equation}
+\label{mat_norm}
+\sigma_{s,g\to h} = \sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}
+\end{equation}
 
 By combining equations \ref{P_sig_norm} \& \ref{mat_norm}, an expression for the
 group transfer probability is obtained which represents the method by which it
 is calculated within Serpent.
 \begin{equation}
 \label{P_serp}
-P_{g\to h} = \frac{\sum_i^I m_i \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_i^I m_i \cdot P_{g\to h,i}
+P_{g\to h} = \frac{\sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} 
+           = \sum_i^I \frac{N_i}{N} \cdot P_{g\to h,i}
 \end{equation}
 The desired parameter, either $\sigma_{s,g\to h,i}$ or $P_{g\to h,i}$, lies within
 the summation in equation \ref{P_serp}.
