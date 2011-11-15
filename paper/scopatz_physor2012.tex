@@ -322,7 +322,9 @@ The value $\tau$ is contructed by first sorting the values of both measurements.
 For every pair of elements in both measurements, consistent strict monotonicity
 is checked.  Thus $\tau$ is the number of stictly monotonic pairs minuse those
 pairs which are not strictly monotonic divided by the total number or pairs.  
-(Pairs which are equivalent are not counted.)  Here, the 
+(Pairs which are equivalent are not counted.)  Here, the scattering kernels
+were flattened prior to the th eevlauation of $\tau$.  Kendall's $\tau$ was 
+computed using the ``\texttt{scipy.stats.kendalltau()}'' \cite{SciPy}.
 
 For an explanation of why the Kendall $\tau$ test is necessary, consider the following
 scenario.  Suppose a nuclide is found with an unacceptably large fractional
