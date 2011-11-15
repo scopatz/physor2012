@@ -205,17 +205,17 @@ command.
 The primary purpose of storing sets of multigroup cross sections is
 to be able to interpolate between them.  Since interpolation of existing
 data is much faster than computing new values via neutron
-transport methods, this allows a multigroup model to
+transport methods, this allows a multigroup model to generate
 run-time, reactor-state-specific group constants.  Such a model has been
-demonstrated \cite{}; in this reference, $\sigma_{s,g,i}$ was explicitly
+demonstrated \cite{ScopatzAnthony2011}; in this reference, $\sigma_{s,g,i}$ was explicitly
 verified, but the validity of interpolating the group-to-group scattering
 cross section was only checked via its aggregation.  Here, interpolations on
 $\sigma_{s,g\to h,i}$ are tested explicitly.
 
 The state of the reactor and corresponding experimental variables are taken
-to be the same as in \cite{}.  Neutron energies were discretized into a 19-group
-structure designed to more finely capture the epithermal region.  Call $E$ [MeV]
-a neutron energy. Then $E_g$ [MeV] denotes the energy group boundaries.
+to be the same as in \cite{ScopatzAnthony2011}.  Neutron energies were discretized 
+into a 19-group structure designed to more finely capture the epithermal region.  
+Call $E$ [MeV] a neutron energy. Then $E_g$ [MeV] denotes the energy group boundaries.
 These are displayed in Table \ref{group_boundaries}.
 \begin{table}[htbp]
 \begin{center}
@@ -241,7 +241,7 @@ These are displayed in Table \ref{group_boundaries}.
 \end{table}
 
 The unit cell considered here was a standard light-water reactor (LWR) taken from an
-OECD/NEA Burnup Credit Criticality report \cite{}.  The reactor was modeled as
+OECD/NEA Burnup Credit Criticality report \cite{Takano1994}.  The reactor was modeled as
 an infinite lattice of these cells.  The benchmark (unperturbed) state of the
 reactor may be seen in Table \ref{benchmark_rx_state}.
 \begin{table}[htbp]
@@ -294,7 +294,7 @@ benchmark fuel radius.
 
 The interpolated scattering cross sections were then compared to the `true'
 values (no superscript), as computed via Serpent. A fractional difference
-$\epsilon$ [unitless] is defined as ***just redefine it here so readers won't have to look it up***.
+$\epsilon$ [unitless] is defined as seen in equation \ref{epsilon_def}.
 \begin{equation}
 \label{epsilon_def}
 \epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1
@@ -318,15 +318,26 @@ for $\tau=-1$ the measurements are in perfect disagreement, and with $\tau=0$ th
 two inputs are fully independent of one another.  For the scattering kernel,
 values closer to unity are desired.
 
+The value $\tau$ is contructed by first sorting the values of both measurements.
+For every pair of elements in both measurements, consistent strict monotonicity
+is checked.  Thus $\tau$ is the number of stictly monotonic pairs minuse those
+pairs which are not strictly monotonic divided by the total number or pairs.  
+(Pairs which are equivalent are not counted.)  Here, the 
+
 For an explanation of why the Kendall $\tau$ test is necessary, consider the following
 scenario.  Suppose a nuclide is found with an unacceptably large fractional
 difference $\epsilon$ for some $g$ \& $h$.  If the value of $\tau$ is sufficiently
 close to 1, this implies that the majority of the scattering cross section
-remains valid.  Such a situation may arise for a heavy species when a perturbation to the configuration gives rise to a large change in the intragroup flux close to the group boundary.  Group boundaries may be refined to mitigate this.
+remains valid.  Such a situation may arise for a heavy species when a perturbation 
+to the configuration gives rise to a large change in the intragroup flux close to 
+the group boundary.  Group boundaries may be refined to mitigate this.
 
 Lastly, the interpolations and analysis were performed for the LWR only
 at the beginning of life.  This was to minimize extraneous sources of error
-coming from a multi-dimensional interpolation that includes fluence as well.  In a burnup analysis, the interpolation on cross sections is also carried out on fluence and initial isotopic concentrations to capture transmutation feedbacks on the group constants -- see \cite{} for details.
+coming from a multi-dimensional interpolation that includes fluence as well.  
+In a burnup analysis, the interpolation on cross sections is also carried out 
+on fluence and initial isotopic concentrations to capture transmutation feedbacks 
+on the group constants -- see \cite{Scopatz2009} for details.
 
 \section{RESULTS}
 \label{sec:results}
