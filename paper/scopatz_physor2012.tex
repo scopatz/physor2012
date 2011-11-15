@@ -319,14 +319,14 @@ two inputs are fully independent of one another.  For the scattering kernel,
 values closer to unity are desired.
 
 The value $\tau$ is contructed by first sorting the values of both measurements.
-For every pair of elements in both measurements, consistent strict monotonicity
-is checked.  Thus $\tau$ is the number of stictly monotonic pairs minuse those
-pairs which are not strictly monotonic divided by the total number or pairs.  
-(Pairs which are equivalent are not counted.)  Here, the scattering kernels
-were flattened prior to the th eevlauation of $\tau$.  Kendall's $\tau$ was 
-computed using the ``\texttt{scipy.stats.kendalltau()}'' \cite{SciPy}.
+For every pair of elements in both measurements consistent, strict monotonicity
+is checked.  Thus $\tau$ is the number of stictly monotonic pairs minus the number
+of non-strictly monotonic pairs divided by the total number of pairs.  
+Pairs which are equivalent are not counted.  Here, the scattering kernels
+were flattened prior to the evaluation of $\tau$.  Kendall's $\tau$ was 
+computed using the ``\texttt{scipy.stats.kendalltau()}'' function in SciPy \cite{SciPy}.
 
-For an explanation of why the Kendall $\tau$ test is necessary, consider the following
+For an explanation of why the Kendall $\tau$ test is necessary consider the following
 scenario.  Suppose a nuclide is found with an unacceptably large fractional
 difference $\epsilon$ for some $g$ \& $h$.  If the value of $\tau$ is sufficiently
 close to 1, this implies that the majority of the scattering cross section
@@ -346,13 +346,24 @@ on the group constants -- see \cite{Scopatz2009} for details.
 
 Group-to-group scattering cross section interpolations were performed for
 each nuclide for three fuel radii (0.3895, 0.41, and 0.4305 [cm]) in between two
-fuel radii (0.369 and 0.451 [cm]) where data used in the interpolations was generated from the modified version of Serpent.  The interpolated values at the intermediate radii were then compared to the equivalent data
-generated using Serpent.  Summary statistics are presented in
-Tables \ref{r25}-\ref{r75}.
-*** be sure to emphasize in table headings that these are the LARGEST error xfer functions per species ***
+fuel radii (0.369 and 0.451 [cm]) where data used in the interpolations was generated 
+from the modified version of Serpent.  The interpolated values at the intermediate 
+radii were then compared to the equivalent data generated using Serpent.  Summary 
+statistics are presented in Tables \ref{r25}-\ref{r75}.
+
+ *** the discussion below may change once you toss out really low-concentration species***
+ *** can you report how many xfer functions have epsilon < say 0.02?  e.g. this would be nice:  "5,500 of 5,600 nonzero scattering kernel entries had errors of less than 2%."***
+These summary tables contain all of the nuclides Serpent may natively compute
+(\emph{i.e.} those present in ENDF/B-VII \cite{}).  The nuclides are sorted from
+highest-to-lowest maximum absolute value of the fractional difference $\epsilon$
+for all $g$ \& $h$.  Thus the top entry gives a maximal error for all group
+constants for all nuclides.  Nuclides whose $\max(|\epsilon|)$ is less than
+that of the last entry are not displayed.  Let the superscript $\max$ indicate that the
+value of the parameter is taken at the $g$ \& $h$ where $\max(|\epsilon|)$ occurs.
+The value of $\epsilon^{\max}$ is shown in the second column of Tables \ref{r25}-\ref{r75}.
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.3895$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.3895$ [cm], Sorted from Largest-to-Least Error.}
 \label{r25}
 \input{r25}
 \end{center}
@@ -360,7 +371,7 @@ Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.41$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.41$ [cm], Sorted from Largest-to-Least Error.}
 \label{r50}
 \input{r50}
 \end{center}
@@ -368,21 +379,11 @@ Tables \ref{r25}-\ref{r75}.
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.4305$ [cm]}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.4305$ [cm], Sorted from Largest-to-Least Error.}
 \label{r75}
 \input{r75}
 \end{center}
 \end{table}
- *** move at least some of this above the tables as it helps explain what readers will see***
- *** the discussion below may change once you toss out really low-concentration species***
- *** can you report how many xfer functions have epsilon < say 0.02?  e.g. this would be nice:  "5,500 of 5,600 nonzero scattering kernel entries had errors of less than 2%."***
-These summary tables contain all of the nuclides Serpent may natively compute
-(\emph{i.e.} those present in ENDF/B-VII \cite{}).  The nuclides are sorted from
-highest-to-lowest maximum absolute value of the fractional difference $\epsilon$
-for all $g$ \& $h$.  Thus the top entry gives a maximal error for all group
-constants for all nuclides.  Nuclides whose $\mbox{max}(|\epsilon|)$ is less than
-that of the last entry are not displayed.  The value of this $\epsilon$ is
-shown in the second column.
 
 For the vast majority of species in these three tables the interpolated value of
 the group-to-group scattering cross section is within $\pm 5\%$ of the measured

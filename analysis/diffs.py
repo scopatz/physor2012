@@ -19,6 +19,14 @@ NUCLIDES = serp_nucs
 BASEPATH = '../data/lwr_base.h5'
 PHYSPATH = '../data/lwr_physor2012.h5'
 
+def round_sig(x, sig=2):
+    if x == 0.0:
+        r = x
+    else:
+        r = np.round(x, sig - np.int(np.floor(np.log10(np.abs(x)))) - 1)
+    return r
+    
+
 
 def load_sigma(nucs, lib, p):
     """Loads xs from a Char lib for a set of nucs for the pth row."""
@@ -78,7 +86,7 @@ def dtype2template(dt):
     for i, name in enumerate(dt.names):
         t = dt.fields[name][0].type
         if issubclass(t, np.float_):
-            conv.append("{" + str(i) + ":.3F}")
+            conv.append("{" + str(i) + ":.4F}")
         else:
             conv.append("{" + str(i) + "}")
     template = " & ".join(conv) + "\\\\\n"
@@ -94,9 +102,19 @@ def array2tabular(a, path=""):
     header += "\\hline\n"
 
     body = ""
-    dtem = dtype2template(a.dtype)
+    #dtem = dtype2template(a.dtype)
     for row in a[:44]:
-        body += dtem.format(*row) 
+        #rounded = [round_sig(r, 3) for r in row if not isinstance(r, basestring)]
+        rounded = [r for r in row if not isinstance(r, basestring)]
+        strs = [row[0]]
+        for r in rounded:
+            if r < 10.0:
+                strs.append("{:.3F}".format(r))
+            else:
+                strs.append("{:.3F}".format(r)[:5])
+        strs[3:5] = ["{}".format(int(gh)) for gh in rounded[2:4]]
+        body += " & ".join(strs) + end
+        #body += dtem.format(row[0], *rounded) 
 
     footer = "\\hline\n\\end{tabular}"
     
@@ -107,13 +125,13 @@ def array2tabular(a, path=""):
 
 avl_dtype = np.dtype([
     ('nuclide', 'S6'),
-    ('$\\epsilon$', float),
+    ('$\\epsilon^{\\max}$', float),
     ('$\\tau$', float),
-    ('$g$', int),
-    ('$h$', int),
-    ('$\\sigma_{s,g\\to h,i}$', float),
-    ('$P_{g\\to h,i}$', float),
-    ('$R_{a/s,g,i}$', float),
+    ('$g^{\\max}$', int),
+    ('$h^{\\max}$', int),
+    ('$\\sigma_{s,g\\to h,i}^{\\max}$', float),
+    ('$P_{g\\to h,i}^{\\max}$', float),
+    ('$R_{a/s,g,i}^{\\max}$', float),
     ])
 
 
