@@ -351,10 +351,8 @@ from the modified version of Serpent.  The interpolated values at the intermedia
 radii were then compared to the equivalent data generated using Serpent.  Summary 
 statistics are presented in Tables \ref{r25}-\ref{r75}.
 
- *** the discussion below may change once you toss out really low-concentration species***
- *** can you report how many xfer functions have epsilon < say 0.02?  e.g. this would be nice:  "5,500 of 5,600 nonzero scattering kernel entries had errors of less than 2%."***
 These summary tables contain all of the nuclides Serpent may natively compute
-(\emph{i.e.} those present in ENDF/B-VII \cite{}).  The nuclides are sorted from
+(\emph{i.e.} those present in ENDF/B-VII \cite{CHADWICK2006}).  The nuclides are sorted from
 highest-to-lowest maximum absolute value of the fractional difference $\epsilon$
 for all $g$ \& $h$.  Thus the top entry gives a maximal error for all group
 constants for all nuclides.  Nuclides whose $\max(|\epsilon|)$ is less than
@@ -363,7 +361,7 @@ value of the parameter is taken at the $g$ \& $h$ where $\max(|\epsilon|)$ occur
 The value of $\epsilon^{\max}$ is shown in the second column of Tables \ref{r25}-\ref{r75}.
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.3895$ [cm], Sorted from Largest-to-Least Error.}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.3895$ [cm], Sorted from Highest-to-Lowest Error.}
 \label{r25}
 \input{r25}
 \end{center}
@@ -371,7 +369,7 @@ The value of $\epsilon^{\max}$ is shown in the second column of Tables \ref{r25}
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.41$ [cm], Sorted from Largest-to-Least Error.}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.41$ [cm], Sorted from Highest-to-Lowest Error.}
 \label{r50}
 \input{r50}
 \end{center}
@@ -379,16 +377,17 @@ The value of $\epsilon^{\max}$ is shown in the second column of Tables \ref{r25}
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Interpolation at $r_{\mbox{fuel}}=0.4305$ [cm], Sorted from Largest-to-Least Error.}
+\caption{Interpolation at $r_{\mbox{fuel}}=0.4305$ [cm], Sorted from Highest-to-Lowest Error.}
 \label{r75}
 \input{r75}
 \end{center}
 \end{table}
 
 For the vast majority of species in these three tables the interpolated value of
-the group-to-group scattering cross section is within $\pm 5\%$ of the measured
-value.  Thus in most cases $\epsilon$ is enough to conclude that interpolation
-is a valid run-time technique for generating scattering kernels.
+the group-to-group scattering cross section is within $\pm 2\%$ of the measured
+value.  2,689 of 2,929 of the non-zero scattering kernel entries have $|\epsilon| < 0.02$.  
+Thus in most cases the additional error is small enough 
+to conclude that interpolation is a valid run-time technique for generating scattering kernels.
 
 Furthermore many species have fractional differences within the 2\% mark.
 It is especially important to note that \nuc{H}{1} and \nuc{O}{16} lie in
@@ -432,17 +431,6 @@ neutron will likely not scatter into the $h$\superscript{th} group.  Therefore t
 relatively higher error in this part of the group-to-group scattering cross section
 is less important to the overall reactor as well.
 
-*** actually, Na-23 is too light to be a fission product.  You can probably just delete this paragraph ***
-Thus the problematic species which remain are those which have $P_{g\to h,i}$ close
-to 1, $R_{a/s,g,i} < 1$, and high $\epsilon$.  A representative of this class is
-\nuc{Na}{23} in Table \ref{r50}.  However, such nuclides are generally only present
-in an LWR is trace amounts.  Their low number density pushes down their reaction rate
-and thus their importance.  For example, \nuc{Na}{23} generally only exists in an
-LWR as a fission product.  (Sodium, being highly chemically reactive with water, is
-generally left out as a design material.)
-
-%\clearpage
-
 \section{CONCLUSIONS \& FUTURE WORK}
 \label{sec:conclusions}
 
@@ -467,7 +455,7 @@ both generated using Serpent for specific isotopes as well as interpolated for u
 
 
 \section*{ACKNOWLEDGEMENTS}
-The authors would like to thanks Jaakko Lepp\"{a}nen for his guidance
+The authors would like to thank Jaakko Lepp\"{a}nen for his guidance
 on Serpent's architecture.
 
 

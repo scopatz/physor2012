@@ -112,7 +112,7 @@ avl_dtype = np.dtype([
     ])
 
 
-def analyze_vs_lib(r, libpath, p_start, p_offset, label):
+def analyze_vs_lib(r, libpath, p_start, p_offset, nz_cutoff, label):
     r0 = 0.369
     r1 = 0.451
 
@@ -134,6 +134,8 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
     sfdiff = sort_frac_diff(fdiff)
 
     res = []
+    total_nonzero = 0
+    total_cutoff = 0
     for nuc, ind, val in sfdiff:
         g = ind / 19
         h = ind % 19
@@ -149,9 +151,17 @@ def analyze_vs_lib(r, libpath, p_start, p_offset, label):
             res.append(row)
         #else:
         #    print nuc, kendalltau(is_gh[nuc], s_gh[nuc])[0]
+
+        nonzero_mask = (s_gh[nuc] != 0.0)
+        total_nonzero += nonzero_mask.sum()
+        cutoff_mask = np.abs(fdiff[nuc][nonzero_mask]) < nz_cutoff
+        total_cutoff += cutoff_mask.sum()
+
     res = np.array(res, dtype=avl_dtype)
-    print res
+    #print res
+    #print total_cutoff, total_nonzero
     array2tabular(res, label + '.tex')
+    return total_cutoff, total_nonzero
 
 
 def main():
@@ -160,10 +170,14 @@ def main():
     r75 = 0.4305
 
     p_offset = 0
+    nz_cutoff = 0.02
 
-    analyze_vs_lib(r25, PHYSPATH, 10, p_offset, '../paper/r25')
-    analyze_vs_lib(r50, BASEPATH, 0,  p_offset, '../paper/r50')
-    analyze_vs_lib(r75, PHYSPATH, 15, p_offset, '../paper/r75')
+    totals = np.array([
+        analyze_vs_lib(r25, PHYSPATH, 10, p_offset, nz_cutoff, '../paper/r25'),
+        analyze_vs_lib(r50, BASEPATH, 0,  p_offset, nz_cutoff, '../paper/r50'),
+        analyze_vs_lib(r75, PHYSPATH, 15, p_offset, nz_cutoff, '../paper/r75'),
+        ])
+    print totals.sum(axis=0)
     
 
 if __name__ == '__main__':
