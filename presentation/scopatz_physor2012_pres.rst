@@ -21,7 +21,7 @@ Goals
 ==============================
 **Goal 1:** 
 
-    Find the neutron scattering kernel
+    Find the neutron scattering kernel [barns]
 
 .. container:: align-center
 
@@ -133,3 +133,35 @@ However, neither compute
     Calculation Code." Technical report (2011).
 
 
+Obtaining the Kernel
+===============================
+* Since source code modifications were needed [*], Serpent was the easier choice as
+  the homogenized material scattering kernel was already tallied. 
+
+
+Obtaining the Kernel
+===============================
+* Since source code modifications were needed [*], Serpent was the easier choice as
+  the homogenized material scattering kernel was already tallied. 
+
+- In specific Serpent returns the group transfer probabilities [unitless]:
+
+.. math:: \sum_h^G P_{g\to h} = \mathbf{\vec{1}}
+
+.. math:: P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
+
+.. container:: gray-and-small
+
+    [*] Please contact the author for further information.
+
+
+Obtaining the Kernel
+===============================
+The scattering cross section of the material is thus the weighted sum of the
+constituent species:
+
+.. math:: \sigma_{s,g\to h} = \sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}
+
+with the number density N [atoms-i/cm3].  Therefore:
+
+.. math:: P_{g\to h} = \frac{\sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_i^I \frac{N_i}{N} \cdot P_{g\to h,i}
