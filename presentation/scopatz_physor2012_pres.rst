@@ -238,7 +238,7 @@ fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
 Interpolation Experiment
 ===============================
 Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
-and the -10% case (``-``). 
+and the -10% case (``-``) for a 19 energy group structure. 
 
 Then perform a linear interpolation (``*``) based on the 
 fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
