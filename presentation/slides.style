@@ -29,8 +29,13 @@
                 }],
              ["main-names" , {
                 "fontSize": 24,
-                "textColor": "#C0C0C0",
+                "textColor": "#808080",
                 "alignment":"center"
+                }],
+             ["gray-and-small", {"alignment":"left",
+                "textColor": "#808080",
+                "spaceAfter": 20,
+                "fontSize": 16
                 }],
              ["align-left", {"alignment":"left",
                 "textColor": "#77181E",
