@@ -19,6 +19,19 @@
                 "fontName": "Times-Roman",
                 "textColor": "#77181E",
                 "fontSize": 20}],
+             ["main-title" , {
+                "fontSize": 32,
+                "textColor": "black",
+                "spaceBefore": 75,
+                "spaceAfter": 25,
+                "alignment":"center"
+                }],
+             ["main-names" , {
+                "fontSize": 24,
+                "textColor": "#C0C0C0",
+                "alignment":"center"
+                }],
+             ["center" , {"alignment":"center"}],
              ["heading" , {
                 #"fontName": "Courier-Bold",
                 "textColor": "#F6FCFC",
