@@ -22,7 +22,7 @@
              ["main-title" , {
                 "fontSize": 32,
                 "textColor": "black",
-                "spaceBefore": 75,
+                "spaceBefore": 150,
                 "spaceAfter": 25,
                 "alignment":"center"
                 }],
@@ -33,9 +33,10 @@
                 }],
              ["center" , {"alignment":"center"}],
              ["heading" , {
-                #"fontName": "Courier-Bold",
+                "alignment":"center",
                 "textColor": "#F6FCFC",
-                "fontSize": 16}]
+                "spaceAfter": 70,
+                "fontSize": 22}]
             ],
   "pageTemplates" : {
     "cutePage": {
@@ -44,8 +45,8 @@
         ],
         #"background" : "background.svg",
         "background" : "background.png",
-        "showHeader" : True,
-        "showFooter" : True
+        "showHeader" : false,
+        "showFooter" : true
     }
   }
 }
