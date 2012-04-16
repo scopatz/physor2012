@@ -18,7 +18,8 @@
   "styles": [["normal" , {
                 "fontName": "Times-Roman",
                 "textColor": "#77181E",
-                "fontSize": 20}],
+                "spaceAfter": 20,
+                "fontSize": 28}],
              ["main-title" , {
                 "fontSize": 32,
                 "textColor": "black",
@@ -31,7 +32,16 @@
                 "textColor": "#C0C0C0",
                 "alignment":"center"
                 }],
-             ["center" , {"alignment":"center"}],
+             ["align-left", {"alignment":"left",
+                "textColor": "#77181E",
+                "spaceAfter": 20,
+                "fontSize": 28
+                }],
+             ["align-center", {"alignment":"center",
+                "textColor": "#77181E",
+                "spaceAfter": 20,
+                "fontSize": 28
+                }],
              ["heading" , {
                 "alignment":"center",
                 "textColor": "#F6FCFC",
