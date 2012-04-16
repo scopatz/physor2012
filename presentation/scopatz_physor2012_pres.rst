@@ -42,7 +42,7 @@ Goals
 ==============================
 **Goal 1:** 
 
-    Find the neutron scattering kernel
+    Find the neutron scattering kernel [barns]
 
 .. container:: align-center
 
@@ -138,7 +138,6 @@ Obtaining the Kernel
 * Since source code modifications were needed [*], Serpent was the easier choice as
   the homogenized material scattering kernel was already tallied. 
 
-
 Obtaining the Kernel
 ===============================
 * Since source code modifications were needed [*], Serpent was the easier choice as
@@ -154,7 +153,6 @@ Obtaining the Kernel
 
     [*] Please contact the author for further information.
 
-
 Obtaining the Kernel
 ===============================
 The scattering cross section of the material is thus the weighted sum of the
@@ -165,3 +163,91 @@ constituent species:
 with the number density N [atoms-i/cm3].  Therefore:
 
 .. math:: P_{g\to h} = \frac{\sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_i^I \frac{N_i}{N} \cdot P_{g\to h,i}
+
+
+Obtaining the Kernel
+===============================
+* To get around the summation in the above equations, a ``gtpmat`` option was added to Serpent::
+
+    set gtpmat <material label>
+
+Obtaining the Kernel
+===============================
+* To get around the summation in the above equations, a ``gtpmat`` option was added to Serpent::
+
+    set gtpmat <material label>
+
+- This acts as a filter for the reporting, but not the physics, of scattering.  
+  Any species that are contained in filter material will be present in the group transfer
+  probability.  All other species are discarded.
+
+
+Obtaining the Kernel
+===============================
+* If only a single species is in the filter material, then the per-nulide scattering
+  cross section is obtained.
+
+- Runnning a whole suite of single species filters will generate the data Char needs
+  to pass on to Bright.
+
+Obtaining the Kernel
+===============================
+* If only a single species is in the filter material, then the per-nulide scattering
+  cross section is obtained.
+
+- Runnning a whole suite of single species filters will generate the data Char needs
+  to pass on to Bright.
+
+* Previous studies [2] have tested that per-nuclide multigroup scattering cross sections
+  may be interpolted.  However, such validation was never performed for kernel interpolation.
+
+
+Interpolation Experiment
+===============================
+To test kernel interpolation, first take a lattice of light-water reactor (LWR) fuel pins 
+(as described in [5]) and modify the fuel radius by +/-10%.
+
+.. figure:: lattice.eps
+    :align: center
+    :scale: 90%
+
+.. container:: gray-and-small
+
+    [5] M. Takano. "Burnup Credit Criticality Benchmark - Result of Phase 1A -
+    NEA/NSC/DOC(93)22." Technical Report January, Nuclear Energy Agency (1994).
+
+Interpolation Experiment
+===============================
+Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+and the -10% case (``-``). 
+
+Interpolation Experiment
+===============================
+Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+and the -10% case (``-``). 
+
+Then perform a linear interpolation (``*``) based on the 
+fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
+
+.. math:: 
+
+    \sigma_{s,g\to h,i}^{*} = \left(\sigma_{s,g\to h,i}^{+} - \sigma_{s,g\to h,i}^{-}\right) 
+                              \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
+                              + \sigma_{s,g\to h,i}^{-}
+
+Interpolation Experiment
+===============================
+Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+and the -10% case (``-``). 
+
+Then perform a linear interpolation (``*``) based on the 
+fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
+
+.. math:: 
+
+    \sigma_{s,g\to h,i}^{*} = \left(\sigma_{s,g\to h,i}^{+} - \sigma_{s,g\to h,i}^{-}\right) 
+                              \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
+                              + \sigma_{s,g\to h,i}^{-}
+
+Such interpolations were carried out for -5%, +5%, and identically the benchmark fuel radius.
+
