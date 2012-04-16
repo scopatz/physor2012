@@ -1,0 +1,38 @@
+{"pageSetup": {
+    "width": "10in",
+    "height": "7.5in",
+    "margin-top": "2mm",
+    "margin-bottom": "0mm",
+    "margin-left": ".5cm",
+    "margin-right": "1cm",
+    "margin-gutter": "0cm",
+    "spacing-header": "2mm",
+    "spacing-footer": "0mm",
+    "firstTemplate": "cutePage"
+  },
+  "fontsAlias" : {"stdFont": "Times-Roman",
+                  "stdBold": "Times-Bold",
+                  "stdItalic": "Times-Italic",
+                  #"stdBoldItalic": "Times-Bold-Italic",
+                  "stdMono": "Courier"},
+  "styles": [["normal" , {
+                "fontName": "Times-Roman",
+                "textColor": "#77181E",
+                "fontSize": 20}],
+             ["heading" , {
+                #"fontName": "Courier-Bold",
+                "textColor": "#F6FCFC",
+                "fontSize": 16}]
+            ],
+  "pageTemplates" : {
+    "cutePage": {
+        "frames": [
+            ["0", "0", "100%", "100%"]
+        ],
+        #"background" : "background.svg",
+        "background" : "background.png",
+        "showHeader" : True,
+        "showFooter" : True
+    }
+  }
+}
