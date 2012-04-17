@@ -89,7 +89,7 @@ Motivation
   we obtain the scattering kernel (typically Monte Carlo) may be performed 
   less often. 
 
-- The major application for this is *the Fuel Cycle*.
+- Major application for this are in the fuel cycle.
 
 
 Context
@@ -108,10 +108,25 @@ microscopic neutron cross sections for each nuclide for a suite of reactor state
     2. A. Scopatz, 2011. "A Generalized Physics-Based Model for Reactor and Fuel Cycle 
     System Simulation," [PhD] dissertation, The University of Texas at Austin. 
 
+Obtaining the Kernel
+===============================
+Out of the box, MCNPX v2.6+ [3] may calculate:
+
+.. math:: \sigma_{s,g,i}
 
 Obtaining the Kernel
 ===============================
-MCNPX v2.6+ [3] may calculate:
+Out of the box, MCNPX v2.6+ [3] may calculate:
+
+.. math:: \sigma_{s,g,i}
+
+Moreover, Serpent v1.7 [4] may calculate:
+
+.. math:: \sigma_{s,g,i}, \, \sigma_{s,g\to h}
+
+Obtaining the Kernel
+===============================
+Out of the box, MCNPX v2.6+ [3] may calculate:
 
 .. math:: \sigma_{s,g,i}
 
@@ -135,32 +150,30 @@ However, neither compute
 
 Obtaining the Kernel
 ===============================
-* Since source code modifications were needed [*], Serpent was the easier choice as
-  the homogenized material scattering kernel was already tallied. 
+* Since source code modifications were needed, Serpent was the easier choice as
+  homogenized material scattering kernel were already tallied. 
 
 Obtaining the Kernel
 ===============================
-* Since source code modifications were needed [*], Serpent was the easier choice as
-  the homogenized material scattering kernel was already tallied. 
+* Since source code modifications were needed, Serpent was the easier choice as
+  homogenized material scattering kernel were already tallied. 
 
-- In specific Serpent returns the group transfer probabilities [unitless]:
+- In specific, Serpent returns the group transfer probabilities P [unitless]:
 
 .. math:: \sum_h^G P_{g\to h} = \mathbf{\vec{1}}
 
 .. math:: P_{g\to h} = \frac{\sigma_{s,g\to h}}{\sigma_{s,g}}
 
-.. container:: gray-and-small
 
-    [*] Please contact the author for further information.
 
 Obtaining the Kernel
 ===============================
-The scattering cross section of the material is thus the weighted sum of the
-constituent species:
+The scattering cross section of a material is the weighted sum of the cross sections
+of its constituent species,
 
 .. math:: \sigma_{s,g\to h} = \sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}
 
-with the number density N [atoms-i/cm3].  Therefore:
+where N [atoms-i/cm3] is the number density.  Therefore:
 
 .. math:: P_{g\to h} = \frac{\sum_i^I \frac{N_i}{N} \cdot \sigma_{s,g\to h,i}}{\sigma_{s,g}} = \sum_i^I \frac{N_i}{N} \cdot P_{g\to h,i}
 
@@ -178,28 +191,48 @@ Obtaining the Kernel
     set gtpmat <material label>
 
 - This acts as a filter for the reporting, but not the physics, of scattering.  
-  Any species that are contained in filter material will be present in the group transfer
-  probability.  All other species are discarded.
+  Any species that are contained in a filter material will be present in the 
+  group transfer probability.  All other species are discarded.
 
 
 Obtaining the Kernel
 ===============================
-* If only a single species is in the filter material, then the per-nulide scattering
-  cross section is obtained.
+* If only a single species is in the filter material, then the per-nuclide group
+  transfer probability is obtained.
 
-- Runnning a whole suite of single species filters will generate the data Char needs
+Obtaining the Kernel
+===============================
+* If only a single species is in the filter material, then the per-nuclide group
+  transfer probability is obtained.
+
+- Thus the group-to-group scattering cross section may be calculated from:
+
+.. math:: \sigma_{s,g\to h,i} = \sigma_{s,g,i} \cdot P_{g\to h,i}
+
+Obtaining the Kernel
+===============================
+* If only a single species is in the filter material, then the per-nuclide group
+  transfer probability is obtained.
+
+- Thus the group-to-group scattering cross section may be calculated from:
+
+.. math:: \sigma_{s,g\to h,i} = \sigma_{s,g,i} \cdot P_{g\to h,i}
+
+* Here the scattering group constant is determined from Serpent using normal 
+  detector tallies.
+
+Obtaining the Kernel
+===============================
+- Running a whole suite of single species filters will generate the data Char needs
   to pass on to Bright.
 
 Obtaining the Kernel
 ===============================
-* If only a single species is in the filter material, then the per-nulide scattering
-  cross section is obtained.
-
-- Runnning a whole suite of single species filters will generate the data Char needs
+- Running a whole suite of single species filters will generate the data Char needs
   to pass on to Bright.
 
 * Previous studies [2] have tested that per-nuclide multigroup scattering cross sections
-  may be interpolted.  However, such validation was never performed for kernel interpolation.
+  may be interpolated.  However, such validation was never performed for kernel interpolation.
 
 
 Interpolation Experiment
@@ -218,16 +251,16 @@ To test kernel interpolation, first take a lattice of light-water reactor (LWR) 
 
 Interpolation Experiment
 ===============================
-Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+For every species, generate the scattering kernel for the +10% case (``+`` superscript)
 and the -10% case (``-``) for a 19 energy group structure.
 
 Interpolation Experiment
 ===============================
-Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+For every species, generate the scattering kernel for the +10% case (``+`` superscript)
 and the -10% case (``-``) for a 19 energy group structure. 
 
-Then perform a linear interpolation (``*``) based on the 
-fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
+Next, perform a linear interpolation (``*``) based on the 
+fuel radius r [cm] to obtain scattering kernels at radii internal to the bounds:
 
 .. math:: 
 
@@ -237,11 +270,11 @@ fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
 
 Interpolation Experiment
 ===============================
-Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+For every species, generate the scattering kernel for the +10% case (``+`` superscript)
 and the -10% case (``-``) for a 19 energy group structure.
 
-Then perform a linear interpolation (``*``) based on the 
-fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
+Next, perform a linear interpolation (``*``) based on the 
+fuel radius r [cm] to obtain scattering kernels at radii internal to the bounds:
 
 .. math:: 
 
@@ -249,13 +282,19 @@ fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
                               \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
                               + \sigma_{s,g\to h,i}^{-}
 
-Such interpolations were carried out for -5%, +5%, and identically the benchmark fuel radius.
+-5%, +5%, and the benchmark fuel radius cases were run.
 
 Interpolation Tests
 ===============================
-For every nuclide and incident and exiting energy group, we perform the following 
+For every nuclide and incident and exiting energy groups, the following 
 validation tests between the interpolation result and the "true" value (no superscript) 
-as calculated from additional Serpent runs.
+- as calculated from additional Serpent runs - were performed.
+
+Interpolation Tests
+===============================
+For every nuclide and incident and exiting energy groups, the following 
+validation tests between the interpolation result and the "true" value (no superscript) 
+- as calculated from additional Serpent runs - were performed.
 
 * Small relative error:
 
@@ -299,9 +338,7 @@ Interpolation Tests
 
     P_{g\to h,i} < 0.5
 
-------------------
-
-If the above relations hold, than the error induced by the interpolation is small enough
+If the above relations hold, then the error induced by the interpolation is small enough
 to not be of concern for a perturbation-based multigroup reactor model.
 
 Results: -5% Benchmark Fuel Radius
@@ -400,8 +437,8 @@ Results Summary
   rare event where high error does not adversely affect criticality calculations
   in downstream applications.
 
-- Categorically for species with high error, low tau, and low R, the probability 
-  of transfering from group g to group h is less than 50%.  This implies that 
+- Lastly, for species with high error, low tau, and low R, the probability 
+  of transferring from group g to group h is less than 50%.  This implies that 
   some other h for this g dominates the scatter events. 
 
 Conclusions
@@ -432,12 +469,26 @@ Future Work
 ====================================
 * Vary the perturbation size.
 
+Future Work
+====================================
+* Vary the perturbation size.
+
 - Investigate non-linear interpolation schemes.
 
-* Investigate methods to simeltaneously compute the scattering kernel for many species.
+Future Work
+====================================
+* Vary the perturbation size.
+
+- Investigate non-linear interpolation schemes.
+
+* Investigate methods to simultaneously compute the scattering kernel for many species.
 
 
 Questions
 ===============================
 .. image:: qm.jpg
-    :scale: 60%
+    :scale: 50%
+
+.. container:: gray-and-small
+
+    Image source: http://www.fotopedia.com/items/flickr-2200500024
