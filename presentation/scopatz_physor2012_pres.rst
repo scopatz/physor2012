@@ -444,14 +444,14 @@ Results Summary
 
 Results Summary
 =======================================
-* Some species with high error and low tau have absorption-to-scattering ratios.
+* Some species with high error and low tau have high absorption-to-scattering ratios.
   For example, U235 has an R which is over 94.   In such cases, scattering is a
   rare event where high error does not adversely affect criticality calculations
   in downstream applications.
 
 Results Summary
 =======================================
-* Some species with high error and low tau have absorption-to-scattering ratios.
+* Some species with high error and low tau have high absorption-to-scattering ratios.
   For example, U235 has an R which is over 94.   In such cases, scattering is a
   rare event where high error does not adversely affect criticality calculations
   in downstream applications.
