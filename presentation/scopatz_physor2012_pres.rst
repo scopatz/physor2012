@@ -219,21 +219,7 @@ To test kernel interpolation, first take a lattice of light-water reactor (LWR) 
 Interpolation Experiment
 ===============================
 Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
-and the -10% case (``-``). 
-
-Interpolation Experiment
-===============================
-Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
-and the -10% case (``-``). 
-
-Then perform a linear interpolation (``*``) based on the 
-fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
-
-.. math:: 
-
-    \sigma_{s,g\to h,i}^{*} = \left(\sigma_{s,g\to h,i}^{+} - \sigma_{s,g\to h,i}^{-}\right) 
-                              \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
-                              + \sigma_{s,g\to h,i}^{-}
+and the -10% case (``-``) for a 19 energy group structure.
 
 Interpolation Experiment
 ===============================
@@ -249,5 +235,71 @@ fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
                               \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
                               + \sigma_{s,g\to h,i}^{-}
 
+Interpolation Experiment
+===============================
+Then for every species, generate the scattering kernel for the +10% case (``+`` superscript)
+and the -10% case (``-``) for a 19 energy group structure.
+
+Then perform a linear interpolation (``*``) based on the 
+fuel radius r [cm] to obtain scaterring kernels at radii internal to the bounds:
+
+.. math:: 
+
+    \sigma_{s,g\to h,i}^{*} = \left(\sigma_{s,g\to h,i}^{+} - \sigma_{s,g\to h,i}^{-}\right) 
+                              \cdot \left(\frac{r^{*} - r^{-}}{r^{+} - r^{-}}\right)
+                              + \sigma_{s,g\to h,i}^{-}
+
 Such interpolations were carried out for -5%, +5%, and identically the benchmark fuel radius.
 
+Interpolation Tests
+===============================
+For every nuclide and incident and exiting energy group, we perform the following 
+validation tests between the interpolation result and the "true" value (no superscript) 
+as calculated from additional Serpent runs.
+
+* Small relative error:
+
+.. math::
+
+    \epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1 \ll 1
+
+- Kendall's tau near unity:
+
+.. math::
+
+    \tau\left(\widetilde{\sigma}_{s,g\to h,i}^{*}, \widetilde{\sigma}_{s,g\to h,i}\right) \approx 1
+
+Interpolation Tests
+===============================
+* Large absorption-to-scattering cross section ratio:
+
+.. math::
+
+    1 \ll R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
+
+
+* Or small group transfer probability:
+
+.. math::
+
+    P_{g\to h,i} < 0.5
+
+Interpolation Tests
+===============================
+* Large absorption-to-scattering cross section ratio:
+
+.. math::
+
+    1 \ll R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
+
+
+* Or small group transfer probability:
+
+.. math::
+
+    P_{g\to h,i} < 0.5
+
+------------------
+
+If the above relations hold, than the error induced by the interpolation is small enough
+to not be of concern for a perturbation-based multigroup reactor model.
