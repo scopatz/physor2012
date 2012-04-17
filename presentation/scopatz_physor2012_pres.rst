@@ -263,7 +263,7 @@ as calculated from additional Serpent runs.
 
     \epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1 \ll 1
 
-- Kendall's tau near unity:
+- Kendall's tau near unity [unitless]:
 
 .. math::
 
@@ -271,7 +271,7 @@ as calculated from additional Serpent runs.
 
 Interpolation Tests
 ===============================
-* Large absorption-to-scattering cross section ratio:
+* Large absorption-to-scattering cross section ratio [unitless]:
 
 .. math::
 
@@ -286,7 +286,7 @@ Interpolation Tests
 
 Interpolation Tests
 ===============================
-* Large absorption-to-scattering cross section ratio:
+* Large absorption-to-scattering cross section ratio [unitless]:
 
 .. math::
 
@@ -358,3 +358,52 @@ U238        0.046   0.989  19   19   6.467   0.684  0.573
     All results indexed by incident and exiting energy and sorted by max(abs(epsilon)).
 
 
+Results Summary
+=======================================
+* For 2,689 of 2,929 non-zero scattering kernel entries, 
+
+.. math:: |\epsilon| < 0.02
+
+Results Summary
+=======================================
+* For 2,689 of 2,929 non-zero scattering kernel entries, 
+
+.. math:: |\epsilon| < 0.02
+
+* This is true for H1 and O16 at thermal energies where
+  fuel-to-moderator ratio changes have a large effect.
+
+Results Summary
+=======================================
+* For 2,689 of 2,929 non-zero scattering kernel entries, 
+
+.. math:: |\epsilon| < 0.02
+
+* This is true for H1 and O16 at thermal energies where
+  fuel-to-moderator ratio changes have a large effect.
+
+- Kendall's tau is always greater than 0.94.  This implies that group-to-group
+  scattering cross sections with high relative error are isolated and that the
+  majority of the kernel matches.
+
+Results Summary
+=======================================
+* Some species with high error and low tau have absorption-to-scattering ratios.
+  For example, U235 has an R which is over 94.   In such cases, scattering is a
+  rare event where high error does not adversely affect criticality calculations
+  in downstream applications.
+
+Results Summary
+=======================================
+* Some species with high error and low tau have absorption-to-scattering ratios.
+  For example, U235 has an R which is over 94.   In such cases, scattering is a
+  rare event where high error does not adversely affect criticality calculations
+  in downstream applications.
+
+- Categorically for species with high error, low tau, and low R, the probability 
+  of transfering from group g to group h is less than 50%.  This implies that 
+  some other h for this g dominates the scatter events. 
+
+
+Conclusions & Future Work
+====================================
