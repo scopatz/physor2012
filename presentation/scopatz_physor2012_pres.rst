@@ -302,6 +302,18 @@ validation tests between the interpolation result and the "true" value (no super
 
     \epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1 \ll 1
 
+Interpolation Tests
+===============================
+For every nuclide and incident and exiting energy groups, the following 
+validation tests between the interpolation result and the "true" value (no superscript) 
+- as calculated from additional Serpent runs - were performed.
+
+* Small relative error:
+
+.. math::
+
+    \epsilon = \frac{\sigma_{s,g\to h,i}^{*}}{\sigma_{s,g\to h,i}} - 1 \ll 1
+
 - Kendall's tau near unity [unitless]:
 
 .. math::
@@ -316,6 +328,13 @@ Interpolation Tests
 
     1 \ll R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
 
+Interpolation Tests
+===============================
+* Large absorption-to-scattering cross section ratio [unitless]:
+
+.. math::
+
+    1 \ll R_{a/s,g,i} = \frac{\sigma_{a,g,i}}{\sigma_{s,g,i}}
 
 * Or small group transfer probability:
 
