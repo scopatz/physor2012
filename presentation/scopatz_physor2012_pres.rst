@@ -404,6 +404,40 @@ Results Summary
   of transfering from group g to group h is less than 50%.  This implies that 
   some other h for this g dominates the scatter events. 
 
-
-Conclusions & Future Work
+Conclusions
 ====================================
+* Nuclide specific scattering kernels may be obtained from Serpent with minor
+  alterations to the source code and some simple post-processing.
+
+Conclusions
+====================================
+* Nuclide specific scattering kernels may be obtained from Serpent with minor
+  alterations to the source code and some simple post-processing.
+
+- Cross sections generated in this way may be interpolated to within sufficient 
+  error for perturbation-based multigroup burnup criticality solvers.
+
+Conclusions
+====================================
+* Nuclide specific scattering kernels may be obtained from Serpent with minor
+  alterations to the source code and some simple post-processing.
+
+- Cross sections generated in this way may be interpolated to within sufficient 
+  error for perturbation-based multigroup burnup criticality solvers.
+
+* Thanks to Jaakko Leppanen for his guidance on Serpent's architecture.
+
+
+Future Work
+====================================
+* Vary the perturbation size.
+
+- Investigate non-linear interpolation schemes.
+
+* Investigate methods to simeltaneously compute the scattering kernel for many species.
+
+
+Questions
+===============================
+.. image:: qm.jpg
+    :scale: 60%
