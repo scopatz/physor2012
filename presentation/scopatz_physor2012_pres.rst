@@ -303,3 +303,58 @@ Interpolation Tests
 
 If the above relations hold, than the error induced by the interpolation is small enough
 to not be of concern for a perturbation-based multigroup reactor model.
+
+Results: -5% Benchmark Fuel Radius
+=======================================
+=========== ======= ====== ==== ==== ======= ====== ======
+**nuclide** epsilon tau    g    h    sigma   P      R
+H3          0.158   0.965  19   19   0.360   0.103  0.000
+HE4         0.130   0.947  13   13   0.144   0.189  0.000
+PU242       0.099   1.000  9    9    113.1   1.000  0.401
+PU240       0.069   1.000  16   16   1151.0  1.000  11.95
+ZR93        0.061   1.000  7    7    34.61   1.000  0.342
+U236        0.055   1.000  9    9    44.08   1.000  0.696
+PD107       0.054   1.000  7    7    8.789   1.000  2.036
+=========== ======= ====== ==== ==== ======= ====== ======
+
+.. container:: gray-and-small
+
+    All results indexed by incident and exiting energy and sorted by max(abs(epsilon)).
+
+
+Results: +0% Benchmark Fuel Radius
+=======================================
+=========== ======= ====== ==== ==== ======= ====== ======
+**nuclide** epsilon tau    g    h    sigma   P      R
+HE4         0.126   0.954  11   10   0.331   0.435  0.000
+H3          0.083   0.970  11   10   0.619   0.372  0.000
+U235        0.066   0.985  18   19   3.627   0.235  29.23
+PD107       0.060   1.000  9    9    40.96   1.000  2.575
+CM244       0.056   1.000  8    8    24.57   1.000  0.891
+PU242       -0.043  1.000  9    9    129.0   1.000  0.403
+U238        0.042   0.990  18   19   2.231   0.236  0.199
+=========== ======= ====== ==== ==== ======= ====== ======
+
+.. container:: gray-and-small
+
+    All results indexed by incident and exiting energy and sorted by max(abs(epsilon)).
+
+
+Results: +5% Benchmark Fuel Radius
+=======================================
+=========== ======= ====== ==== ==== ======= ====== ======
+**nuclide** epsilon tau    g    h    sigma   P      R
+HE4         -0.115  0.963  16   16   0.409   0.537  0.000
+H3          -0.113  0.975  19   19   1.184   0.336  0.000
+U235        -0.094  0.976  19   19   12.22   0.791  94.32
+PU242       0.090   1.000  7    7    16.25   1.000  0.463
+U236        -0.080  0.999  8    8    47.23   1.000  0.691
+PU240       -0.054  1.000  9    9    76.04   1.000  1.482
+U238        0.046   0.989  19   19   6.467   0.684  0.573
+=========== ======= ====== ==== ==== ======= ====== ======
+
+.. container:: gray-and-small
+
+    All results indexed by incident and exiting energy and sorted by max(abs(epsilon)).
+
+
